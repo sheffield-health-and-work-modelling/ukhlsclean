@@ -102,11 +102,13 @@ ukhls_read_wave13 <- function(
                                 m_nnewborn)
   smoke_vars       <- Hmisc::Cs(m_smoker, m_ncigs, m_giveup, m_gvupreas1, m_gvupreas2, m_gvupreas3, m_gvupreas4, m_gvupreas5, m_gvupreas6, m_gvupreas7, m_gvupreas8, m_gvupreas9, m_ecigs1)
   alc_vars         <- Hmisc::Cs(m_auditc1, m_auditc2, m_auditc3, m_auditc4, m_auditc5)
+  gamble_vars      <- Hmisc::CS(m_privbet, m_onlbet, m_natlot, m_olott, m_scratchc, m_footpool, m_spreadbet, m_betex, m_onlgam, m_othgam)
   weight_vars      <- Hmisc::Cs(m_indinus_lw, m_indinui_xw)
 
   names <- c(id_vars, demographic_vars, prev_wave_vars, econ_stat_vars, income_vars, work_vars, employees_vars,
              s.emp_vars, non.emp_vars, job2_vars, benefits_vars, pension_vars, bendis_vars, otherben_vars,
-             benincome_vars, hhfinance_vars, education_vars, health_vars, health_cond_vars, preg_vars, smoke_vars, alc_vars, weight_vars)
+             benincome_vars, hhfinance_vars, education_vars, health_vars, health_cond_vars, preg_vars,
+             smoke_vars, alc_vars, gamble_vars, weight_vars)
   names <- tolower(names)
 
   data <- data[ , names, with = F]
@@ -181,6 +183,8 @@ ukhls_read_wave13 <- function(
                          "m_gvupreas4", "m_gvupreas5", "m_gvupreas6", "m_gvupreas7", "m_gvupreas8", "m_gvupreas9", "m_ecigs1",
                          ## alcohol variables
                          "m_auditc1","m_auditc2","m_auditc3","m_auditc4","m_auditc5",
+                         ## gambling variables
+                         "m_privbet", "m_onlbet", "m_natlot", "m_olott", "m_scratchc", "m_footpool", "m_spreadbet", "m_betex", "m_onlgam", "m_othgam",
                          ## weight
                          "m_indinus_lw","m_indinui_xw"),
 
@@ -252,6 +256,8 @@ ukhls_read_wave13 <- function(
                          "gvupsmk_public_work_smk_ban", "gvupsmk_fam&frnds", "gvupsmk_finances", "gvupsmk_chld_effect", "gvupsmk_fam_effect", "gvupsmk_other_reason", "ecigs",
                          ## alcohol variables
                          "auditc1","auditc2","auditc3","auditc4","auditc5",
+                         ## gambling variables
+                         "privbet", "onlbet", "natlot", "olott", "scratchc", "footpool", "spreadbet", "betex", "onlgam", "othgam",
                          ## weight
                          "weight_lw","weight_xw"))
 
