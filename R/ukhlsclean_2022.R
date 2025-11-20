@@ -4,7 +4,7 @@
 #' Understanding Society survey but designed to be a representative cross-section for the year 2022. For this data,
 #' the function applies the full reading and cleaning process.
 #'
-#' UKDS Study Number: \href{https://beta.ukdataservice.ac.uk/datacatalogue/studies/study?id=9333}{SN9333 Understanding Society: Calendar Year Dataset, 2020}
+#' UKDS Study Number: \href{https://beta.ukdataservice.ac.uk/datacatalogue/studies/study?id=9333}{SN9333 Understanding Society: Calendar Year Dataset, 2022}
 #'
 #' @source University of Essex, Institute for Social and Economic Research. (2024).
 #' Understanding Society: Calendar Year Dataset, 2024 [data collection]. UK Data Service. SN: 9333, \href{https://doi.org/10.5255/UKDA-SN-9333-1}{DOI: 10.5255/UKDA-SN-9333-1}
@@ -32,7 +32,7 @@
 #' @export
 ukhlsclean_2022 <- function(
     root = c("X:/"),
-    file = "HAR_PR/PR/USoc/Data/Calendar Year Datasets/SN9333_2025_06_24/tab",
+    file = "HAR_PR/PR/USoc/Data/Calendar Year Datasets/2022/SN9333_2025_06_24/tab",
     #root = c("C:/"),
     #file = "Users/damon/OneDrive/Documents/USoc/Datasets/Calendar year data/2022/tab",
     full = FALSE,
