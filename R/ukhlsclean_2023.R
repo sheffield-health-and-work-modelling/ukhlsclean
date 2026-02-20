@@ -1,13 +1,13 @@
-#' Read Understanding Society 2022
+#' Read Understanding Society 2023
 #'
-#' Reads and cleans the Understanding Society calendar year data for 2022. These data are derived from the main
-#' Understanding Society survey but designed to be a representative cross-section for the year 2022. For this data,
+#' Reads and cleans the Understanding Society calendar year data for 2023 These data are derived from the main
+#' Understanding Society survey but designed to be a representative cross-section for the year 2023 For this data,
 #' the function applies the full reading and cleaning process.
 #'
-#' UKDS Study Number: \href{https://beta.ukdataservice.ac.uk/datacatalogue/studies/study?id=9333}{SN9333 Understanding Society: Calendar Year Dataset, 2022}
+#' UKDS Study Number: \href{https://datacatalogue.ukdataservice.ac.uk/studies/study/9471}{SN9471 Understanding Society: Calendar Year Dataset, 2023}
 #'
 #' @source University of Essex, Institute for Social and Economic Research. (2024).
-#' Understanding Society: Calendar Year Dataset, 2024 [data collection]. UK Data Service. SN: 9333, \href{https://doi.org/10.5255/UKDA-SN-9333-1}{DOI: 10.5255/UKDA-SN-9333-1}
+#' Understanding Society: Calendar Year Dataset, 2024 [data collection]. UK Data Service. SN: 9471, \href{https://doi.org/10.5255/UKDA-SN-9471-1}{DOI: 10.5255/UKDA-SN-9471-1}
 #'
 #'
 #' @param root Character - the root directory.
@@ -30,9 +30,9 @@
 #' \item The probabilistic sampling unit have the year appended to them.
 #' }
 #' @export
-ukhlsclean_2022 <- function(
+ukhlsclean_2023 <- function(
     root = c("X:/"),
-    file = "HAR_PR/PR/USoc/Data/Calendar Year Datasets/2022/SN9333_2025_06_24/tab",
+    file = "HAR_PR/PR/USoc/Data/Calendar Year Datasets/2023/SN9471_2025_11_06/tab",
     #root = c("C:/"),
     #file = "Users/damon/OneDrive/Documents/USoc/Datasets/Calendar year data/2022/tab",
     full = FALSE,
@@ -43,52 +43,52 @@ ukhlsclean_2022 <- function(
     inflation_index = "cpih"
 ) {
 
-  cat(crayon::blue(crayon::underline("\tReading UKHLS Calendar Year 2022 datasets")))
+  cat(crayon::blue(crayon::underline("\tReading UKHLS Calendar Year 2023 datasets")))
 
   cat(crayon::green("\tIndividual..."))
 
   path <- here::here(paste0(root, file))
 
   data <- data.table::fread(
-    paste0(path, "/lmn_indresp.tab"),
+    paste0(path, "/mno_indresp.tab"),
     showProgress = FALSE,
     na.strings = c("NA", "", "-1", "-2", "-6", "-7", "-8", "-9", "-10", "-90", "-90.0", "N/A")
   )
   if (full == TRUE) {
     # retain full interviews only
-    data <- data[lmn_ivfio==1,]
+    data <- data[mno_ivfio==1,]
   }
 
 
   data.table::setnames(data, names(data), tolower(names(data)))
 
-  id_vars          <- Hmisc::Cs(pidp, pid, lmn_hidp, lmn_pno, lmn_psu, lmn_strata, lmn_istrtdaty, lmn_istrtdatm, lmn_istrtdatd)
-  demographic_vars <- Hmisc::Cs(lmn_sex, lmn_dvage, lmn_birthy, lmn_gor_dv, lmn_urban_dv, lmn_mlstat, lmn_marstat)
-  econ_stat_vars   <- Hmisc::Cs(lmn_jbstat, lmn_jbhas, lmn_jboff, lmn_jboffy)
-  work_vars        <- Hmisc::Cs(lmn_paygu_dv, lmn_payg_dv, lmn_jbhrs, lmn_fimnlabgrs_dv, lmn_seearngrs_dv, lmn_jbsic07_cc)
-  education_vars   <- Hmisc::Cs(lmn_hiqual_dv)
-  health_vars      <- Hmisc::Cs(lmn_health, lmn_aidhh, lmn_sclfsat1, lmn_sclfsato, lmn_sf12pcs_dv, lmn_sf12mcs_dv,
-                                lmn_scsf1, lmn_scsf2a, lmn_scsf2b, lmn_scsf3a, lmn_scsf3b, lmn_scsf4a, lmn_scsf4b, lmn_scsf5, lmn_scsf6a,
-                                lmn_scsf6b, lmn_scsf6c, lmn_scsf7)
-  health_cond_vars <- Hmisc::Cs(lmn_hconds01, lmn_hconds03, lmn_hconds04, lmn_hconds05, lmn_hconds08,
-                                              lmn_hconds11, lmn_hconds12, lmn_hconds15, lmn_hconds16,
-                                lmn_hconds21,                                           lmn_hconds26, lmn_hconds27, lmn_hconds28, lmn_hconds29,
-                                lmn_hconds30, lmn_hconds31, lmn_hconds32, lmn_hconds33, lmn_hconds34, lmn_hconds35,
+  id_vars          <- Hmisc::Cs(pidp, pid, mno_hidp, mno_pno, mno_psu, mno_strata, mno_istrtdaty, mno_istrtdatm, mno_istrtdatd)
+  demographic_vars <- Hmisc::Cs(mno_sex, mno_dvage, mno_birthy, mno_gor_dv, mno_urban_dv, mno_mlstat, mno_marstat)
+  econ_stat_vars   <- Hmisc::Cs(mno_jbstat, mno_jbhas, mno_jboff, mno_jboffy)
+  work_vars        <- Hmisc::Cs(mno_paygu_dv, mno_payg_dv, mno_jbhrs, mno_fimnlabgrs_dv, mno_seearngrs_dv, mno_jbsic07_cc)
+  education_vars   <- Hmisc::Cs(mno_hiqual_dv)
+  health_vars      <- Hmisc::Cs(mno_health, mno_aidhh, mno_sclfsat1, mno_sclfsato, mno_sf12pcs_dv, mno_sf12mcs_dv,
+                                mno_scsf1, mno_scsf2a, mno_scsf2b, mno_scsf3a, mno_scsf3b, mno_scsf4a, mno_scsf4b, mno_scsf5, mno_scsf6a,
+                                mno_scsf6b, mno_scsf6c, mno_scsf7)
+  health_cond_vars <- Hmisc::Cs(mno_hconds01, mno_hconds03, mno_hconds04, mno_hconds05, mno_hconds08,
+                                              mno_hconds11, mno_hconds12, mno_hconds15, mno_hconds16,
+                                mno_hconds21,                                           mno_hconds26, mno_hconds27, mno_hconds28, mno_hconds29,
+                                mno_hconds30, mno_hconds31, mno_hconds32, mno_hconds33, mno_hconds34, mno_hconds35,
 
-                                lmn_hcondns1, lmn_hcondns3, lmn_hcondns4, lmn_hcondns5, lmn_hcondns6, lmn_hcondns7, lmn_hcondns8, lmn_hcondns10)
-  preg_vars        <- Hmisc::Cs(lmn_pregout1, lmn_pregout2)
-  smoke_vars       <- Hmisc::Cs(lmn_smoker, lmn_ncigs)
-  benefits_vars    <- Hmisc::Cs(lmn_benbase1, lmn_benbase2, lmn_benbase3, lmn_benbase4, lmn_benbase96,
-                                lmn_benctc)
-  pension_vars     <- Hmisc::Cs(lmn_benpen1, lmn_benpen2, lmn_benpen3, lmn_benpen4, lmn_benpen5, lmn_benpen6, lmn_benpen7, lmn_benpen8, lmn_benpen96)
-  bendis_vars      <- Hmisc::Cs(lmn_bendis1, lmn_bendis2, lmn_bendis3, lmn_bendis4, lmn_bendis5, lmn_bendis12,
-                                lmn_bendis7, lmn_bendis8, lmn_bendis10, lmn_bendis97, lmn_bendis96)
-  otherben_vars    <- Hmisc::Cs(lmn_benesa,
-                                lmn_othben1, lmn_othben2,                           lmn_othben5, lmn_othben6, lmn_othben7, lmn_othben8, lmn_othben9, lmn_othben97, lmn_othben96)
-  benincome_vars   <- Hmisc::Cs(lmn_bensta2, lmn_bensta3, lmn_bensta4, lmn_bensta5, lmn_bensta6, lmn_bensta7, lmn_bensta97, lmn_bensta96)
-  weight_vars      <- Hmisc::Cs(lmn_inding2_xw)
+                                mno_hcondns1, mno_hcondns3, mno_hcondns4, mno_hcondns5, mno_hcondns6, mno_hcondns7, mno_hcondns8, mno_hcondns10)
+  preg_vars        <- Hmisc::Cs(mno_pregout1, mno_pregout2)
+  smoke_vars       <- Hmisc::Cs(mno_smoker, mno_ncigs)
+  benefits_vars    <- Hmisc::Cs(mno_benbase1, mno_benbase2, mno_benbase3, mno_benbase4, mno_benbase96,
+                                mno_benctc)
+  pension_vars     <- Hmisc::Cs(mno_benpen1, mno_benpen2, mno_benpen3, mno_benpen4, mno_benpen5, mno_benpen6, mno_benpen7, mno_benpen8, mno_benpen96)
+  bendis_vars      <- Hmisc::Cs(mno_bendis1, mno_bendis2, mno_bendis3, mno_bendis4, mno_bendis5, mno_bendis12,
+                                mno_bendis7, mno_bendis8, mno_bendis10, mno_bendis97, mno_bendis96)
+  otherben_vars    <- Hmisc::Cs(mno_benesa,
+                                mno_othben1, mno_othben2,                           mno_othben5, mno_othben6, mno_othben7, mno_othben8, mno_othben9, mno_othben97, mno_othben96)
+  benincome_vars   <- Hmisc::Cs(mno_bensta2, mno_bensta3, mno_bensta4, mno_bensta5, mno_bensta6, mno_bensta7, mno_bensta97, mno_bensta96)
+  weight_vars      <- Hmisc::Cs(mno_inding2_xw)
 
-  s2020_vars       <- Hmisc::Cs(lmn_ethn_dv)
+  s2020_vars       <- Hmisc::Cs(mno_ethn_dv)
 
   names <- c(id_vars, demographic_vars, econ_stat_vars, work_vars, education_vars,
              health_vars, preg_vars, smoke_vars,
@@ -100,47 +100,47 @@ ukhlsclean_2022 <- function(
 
   data.table::setnames(data,
 
-                       c("pidp","pid","lmn_hidp","lmn_pno","lmn_psu","lmn_strata","lmn_istrtdaty","lmn_istrtdatm","lmn_istrtdatd",
+                       c("pidp","pid","mno_hidp","mno_pno","mno_psu","mno_strata","mno_istrtdaty","mno_istrtdatm","mno_istrtdatd",
                          ## demographic
-                         "lmn_sex","lmn_dvage","lmn_birthy","lmn_gor_dv","lmn_urban_dv","lmn_mlstat","lmn_marstat",
+                         "mno_sex","mno_dvage","mno_birthy","mno_gor_dv","mno_urban_dv","mno_mlstat","mno_marstat",
                          ## economic status
-                         "lmn_jbstat","lmn_jbhas","lmn_jboff","lmn_jboffy",
+                         "mno_jbstat","mno_jbhas","mno_jboff","mno_jboffy",
                          ## work variables
-                         "lmn_paygu_dv","lmn_payg_dv","lmn_jbhrs","lmn_fimnlabgrs_dv","lmn_seearngrs_dv","lmn_jbsic07_cc",
+                         "mno_paygu_dv","mno_payg_dv","mno_jbhrs","mno_fimnlabgrs_dv","mno_seearngrs_dv","mno_jbsic07_cc",
                          ## education variables
-                         "lmn_hiqual_dv",
+                         "mno_hiqual_dv",
                          ## health variables
-                         "lmn_health","lmn_aidhh","lmn_sclfsat1","lmn_sclfsato","lmn_sf12pcs_dv","lmn_sf12mcs_dv",
-                         "lmn_scsf1","lmn_scsf2a","lmn_scsf2b","lmn_scsf3a","lmn_scsf3b","lmn_scsf4a","lmn_scsf4b","lmn_scsf5","lmn_scsf6a","lmn_scsf6b","lmn_scsf6c","lmn_scsf7",
+                         "mno_health","mno_aidhh","mno_sclfsat1","mno_sclfsato","mno_sf12pcs_dv","mno_sf12mcs_dv",
+                         "mno_scsf1","mno_scsf2a","mno_scsf2b","mno_scsf3a","mno_scsf3b","mno_scsf4a","mno_scsf4b","mno_scsf5","mno_scsf6a","mno_scsf6b","mno_scsf6c","mno_scsf7",
                          ## health conditions
-                         #"lmn_hconds01", "lmn_hconds03", "lmn_hconds04", "lmn_hconds05", "lmn_hconds08",
-                         #                "lmn_hconds11", "lmn_hconds12", "lmn_hconds15", "lmn_hconds16",
-                         #"lmn_hconds21"                                                , "lmn_hconds26", "lmn_hconds27", "lmn_hconds28", "lmn_hconds29",
-                         #"lmn_hconds30", "lmn_hconds31", "lmn_hconds32", "lmn_hconds33", "lmn_hconds34", "lmn_hconds35",
+                         #"mno_hconds01", "mno_hconds03", "mno_hconds04", "mno_hconds05", "mno_hconds08",
+                         #                "mno_hconds11", "mno_hconds12", "mno_hconds15", "mno_hconds16",
+                         #"mno_hconds21"                                                , "mno_hconds26", "mno_hconds27", "mno_hconds28", "mno_hconds29",
+                         #"mno_hconds30", "mno_hconds31", "mno_hconds32", "mno_hconds33", "mno_hconds34", "mno_hconds35",
 
-                         #"lmn_hcondns1", "lmn_hcondns3", "lmn_hcondns4", "lmn_hcondns5", "lmn_hcondns6", "lmn_hcondns7", "lmn_hcondns8",
-                         #"lmn_hcondns10",
+                         #"mno_hcondns1", "mno_hcondns3", "mno_hcondns4", "mno_hcondns5", "mno_hcondns6", "mno_hcondns7", "mno_hcondns8",
+                         #"mno_hcondns10",
                          ## pregnancy variables
-                         "lmn_pregout1","lmn_pregout2",
+                         "mno_pregout1","mno_pregout2",
                          ## smoke variables
-                         "lmn_smoker", "lmn_ncigs",
+                         "mno_smoker", "mno_ncigs",
                          ## benefits
-                         "lmn_benbase1","lmn_benbase2","lmn_benbase3","lmn_benbase4","lmn_benbase96",
-                         "lmn_benctc",
+                         "mno_benbase1","mno_benbase2","mno_benbase3","mno_benbase4","mno_benbase96",
+                         "mno_benctc",
                          ## pensions
-                         "lmn_benpen1","lmn_benpen2","lmn_benpen3","lmn_benpen4","lmn_benpen5","lmn_benpen6","lmn_benpen7","lmn_benpen8","lmn_benpen96",
+                         "mno_benpen1","mno_benpen2","mno_benpen3","mno_benpen4","mno_benpen5","mno_benpen6","mno_benpen7","mno_benpen8","mno_benpen96",
                          ## disability benefits
-                         "lmn_bendis1","lmn_bendis2","lmn_bendis3","lmn_bendis4","lmn_bendis5","lmn_bendis12",
-                         "lmn_bendis7","lmn_bendis8","lmn_bendis10","lmn_bendis97","lmn_bendis96",
+                         "mno_bendis1","mno_bendis2","mno_bendis3","mno_bendis4","mno_bendis5","mno_bendis12",
+                         "mno_bendis7","mno_bendis8","mno_bendis10","mno_bendis97","mno_bendis96",
                          ## other benefits
-                         "lmn_benesa",
-                         "lmn_othben1","lmn_othben2"                            ,"lmn_othben5","lmn_othben6","lmn_othben7","lmn_othben8","lmn_othben9","lmn_othben97","lmn_othben96",
+                         "mno_benesa",
+                         "mno_othben1","mno_othben2"                            ,"mno_othben5","mno_othben6","mno_othben7","mno_othben8","mno_othben9","mno_othben97","mno_othben96",
                          ## benefit income variables (formerly receivables)
-                         "lmn_bensta2","lmn_bensta3","lmn_bensta4","lmn_bensta5","lmn_bensta6","lmn_bensta7","lmn_bensta97","lmn_bensta96",
+                         "mno_bensta2","mno_bensta3","mno_bensta4","mno_bensta5","mno_bensta6","mno_bensta7","mno_bensta97","mno_bensta96",
                          ## weight
-                         "lmn_inding2_xw",
+                         "mno_inding2_xw",
                          ## 2020 specific variables
-                         "lmn_ethn_dv"),
+                         "mno_ethn_dv"),
 
 
                        c("pidp","pid","hidp","person_number","psu","strata","year","month","day",
@@ -190,20 +190,20 @@ ukhlsclean_2022 <- function(
   cat(crayon::green("\tHousehold..."))
 
   data.hhold <- data.table::fread(
-    paste0(path, "/lmn_hhresp.tab"),
+    paste0(path, "/mno_hhresp.tab"),
     showProgress = FALSE,
     na.strings = c("NA", "", "-1", "-2", "-6", "-7", "-8", "-9", "-90", "-90.0", "N/A")
   )
   data.table::setnames(data.hhold, names(data.hhold), tolower(names(data.hhold)))
 
-  hhold_vars          <- Hmisc::Cs(lmn_hidp, lmn_tenure_dv, lmn_nkids_dv, lmn_hhsize, lmn_hhtype_dv,
-                                   lmn_nch02_dv, lmn_nch34_dv, lmn_nch511_dv, lmn_nch1215_dv)
+  hhold_vars          <- Hmisc::Cs(mno_hidp, mno_tenure_dv, mno_nkids_dv, mno_hhsize, mno_hhtype_dv,
+                                   mno_nch02_dv, mno_nch34_dv, mno_nch511_dv, mno_nch1215_dv)
 
   data.hhold <- data.hhold[ , hhold_vars, with = F]
   data.table::setnames(data.hhold,
                        # old names
-                       c("lmn_hidp", "lmn_tenure_dv", "lmn_nkids_dv", "lmn_hhsize","lmn_hhtype_dv",
-                         "lmn_nch02_dv", "lmn_nch34_dv", "lmn_nch511_dv", "lmn_nch1215_dv"),
+                       c("mno_hidp", "mno_tenure_dv", "mno_nkids_dv", "mno_hhsize","mno_hhtype_dv",
+                         "mno_nch02_dv", "mno_nch34_dv", "mno_nch511_dv", "mno_nch1215_dv"),
                        # new names
                        c("hidp", "hh_tenure", "hh_numchild", "hh_size", "hh_type",
                          "hh_numchild02", "hh_numchild34", "hh_numchild511", "hh_numchild1215"))
@@ -220,18 +220,18 @@ ukhlsclean_2022 <- function(
   cat(crayon::green("\tIndall..."))
 
   data.indall <- data.table::fread(
-    paste0(path, "/lmn_indall.tab"),
+    paste0(path, "/mno_indall.tab"),
     showProgress = FALSE,
     na.strings = c("NA", "", "-1", "-2", "-6", "-7", "-8", "-9", "-90", "-90.0", "N/A")
   )
   data.table::setnames(data.indall, names(data.indall), tolower(names(data.indall)))
 
-  indall_vars  <- colnames(data.indall[ , c("pidp","lmn_hidp")])
+  indall_vars  <- colnames(data.indall[ , c("pidp","mno_hidp")])
 
   data.indall <- data.indall[ , indall_vars, with = F]
   data.table::setnames(data.indall,
                        # old names
-                       c("pidp","lmn_hidp"),
+                       c("pidp","mno_hidp"),
                        # new names
                        c("pidp","hidp"))
 
@@ -258,11 +258,8 @@ ukhlsclean_2022 <- function(
   data_merged[, bhps_sample := ifelse(!is.na(pid),TRUE,FALSE)]
   data_merged[, id := ifelse(bhps_sample==FALSE, pidp, pid)]
 
-  ## identify if running the calendar year code
-  calendar_year <- TRUE
-
   ## drop small number (643) of 2021 observations
-  data_merged <- data_merged[year == 2022,]
+  data_merged <- data_merged[year == 2023,]
 
   if (inflation_index == "cpih"){
     inflation <- ukhlsclean::cpih
