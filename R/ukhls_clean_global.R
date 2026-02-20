@@ -49,7 +49,7 @@ ukhls_clean_global <- function(data,
 
   ### health conditions
 
-  health_conditions <- ukhlsclean::ukhls_clean_health_conditions(data = data)
+  #health_conditions <- ukhlsclean::ukhls_clean_health_conditions(data = data)
 
   ### alcohol
 
@@ -86,7 +86,7 @@ ukhls_clean_global <- function(data,
   merged_data <- merge(main_data, demographics,        by = c("pidp", "id", "hidp", "wave_no"))
   merged_data <- merge(merged_data, income,            by = c("pidp", "id", "hidp", "wave_no"))
   merged_data <- merge(merged_data, health,            by = c("pidp", "id", "hidp", "wave_no"))
-  merged_data <- merge(merged_data, health_conditions, by = c("pidp", "id", "hidp", "wave_no"))
+  #merged_data <- merge(merged_data, health_conditions, by = c("pidp", "id", "hidp", "wave_no"))
   merged_data <- merge(merged_data, alcohol,           by = c("pidp", "id", "hidp", "wave_no"))
   merged_data <- merge(merged_data, smoke,             by = c("pidp", "id", "hidp", "wave_no"))
   merged_data <- merge(merged_data, gambling,          by = c("pidp", "id", "hidp", "wave_no"))
