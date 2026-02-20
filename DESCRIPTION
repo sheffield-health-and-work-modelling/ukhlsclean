@@ -28,4 +28,5 @@ Depends:
 Imports:
     data.table,
     magrittr,
-    Hmisc
+    Hmisc,
+    bit64
