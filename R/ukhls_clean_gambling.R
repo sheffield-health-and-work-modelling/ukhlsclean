@@ -12,7 +12,7 @@ ukhls_clean_gambling <- function(data = NULL) {
   #### wave 13 variables
   if("privbet" %in% colnames(data)) {
 
-    gamble_vars      <- Hmisc::CS(m_privbet, m_onlbet, m_natlot, m_olott, m_scratchc, m_footpool, m_spreadbet, m_betex, m_onlgam, m_othgam)
+    gamble_vars      <- Hmisc::Cs(m_privbet, m_onlbet, m_natlot, m_olott, m_scratchc, m_footpool, m_spreadbet, m_betex, m_onlgam, m_othgam)
 
     ## recode as dummies
     data[privbet   == 2, privbet := 0]
