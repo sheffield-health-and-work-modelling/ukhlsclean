@@ -179,7 +179,7 @@ ukhls_read_wave15 <- function(
                          ## previous wave variables
                          "notempchk","empchk",
                          ## economic status
-                         "ecoo_stat","jbhas","jboff","jboffy","jbterm1","jbterm2","jbsemp",
+                         "econ_stat","jbhas","jboff","jboffy","jbterm1","jbterm2","jbsemp",
                          ## income variables
                          "fimnnet_dv", "fimngrs_dv",
                          "fimnlabnet_dv", "fimnmisc_dv", "fimnprben_dv", "fimninvnet_dv", "fimnpen_dv", "fimnsben_dv",
