@@ -1,5 +1,3 @@
-
-
 #' EQ-5D Coefficient Matrix
 #'
 #' Matrix of coefficients used to calculate EQ-5D domains from the SF-12.
