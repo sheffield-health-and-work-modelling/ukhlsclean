@@ -9,9 +9,9 @@ University of Essex, Institute for Social and Economic Research. (2022). Underst
 \usage{
 ukhlsclean(
   root = "X:/",
-  file = "HAR_PR/PR/USoc/Data/SN6614_2022_11_29/tab/ukhls",
-  full = TRUE,
-  waves = 1:14,
+  file = "HAR_PR/PR/USoc/Data/SN6614_2026_02_20/tab/ukhls",
+  full = FALSE,
+  waves = 1:15,
   ages = NULL,
   country = NULL,
   complete_vars = NULL,

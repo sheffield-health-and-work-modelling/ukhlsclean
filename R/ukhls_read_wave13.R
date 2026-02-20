@@ -95,6 +95,7 @@ ukhls_read_wave13 <- function(
                                 m_hcondns21, m_hcondns23, m_hcondns24, m_hcondns26, m_hcondns27, m_hcondns28, m_hcondns29,
                                 m_hcondns30, m_hcondns31, m_hcondns33, m_hcondns34, m_hcondns35, m_hcondns37, m_hcondns38, m_hcondns39,
                                 m_hcondns40, m_hcondns41, m_hcondns42)
+  health_cond_vars <- NULL
   preg_vars        <- Hmisc::Cs(m_preg,
                                 m_pregout1, m_pregend1, m_pregsmoke1, m_smkmnth11, m_smkmnth21, m_smkmnth31, m_pregsmk11, m_pregsmk21, m_pregsmk31, m_aedrof1, m_aepuwk1, m_aepuda1, m_lchmulti1,
                                 m_pregout2, m_pregend2, m_pregsmoke2, m_smkmnth12, m_smkmnth22, m_smkmnth32, m_pregsmk12, m_pregsmk22, m_pregsmk32, m_aedrof2, m_aepuwk2, m_aepuda2, m_lchmulti2,
@@ -102,7 +103,7 @@ ukhls_read_wave13 <- function(
                                 m_nnewborn)
   smoke_vars       <- Hmisc::Cs(m_smoker, m_ncigs, m_giveup, m_gvupreas1, m_gvupreas2, m_gvupreas3, m_gvupreas4, m_gvupreas5, m_gvupreas6, m_gvupreas7, m_gvupreas8, m_gvupreas9, m_ecigs1)
   alc_vars         <- Hmisc::Cs(m_auditc1, m_auditc2, m_auditc3, m_auditc4, m_auditc5)
-  gamble_vars      <- Hmisc::CS(m_privbet, m_onlbet, m_natlot, m_olott, m_scratchc, m_footpool, m_spreadbet, m_betex, m_onlgam, m_othgam)
+  gamble_vars      <- Hmisc::Cs(m_privbet, m_onlbet, m_natlot, m_olott, m_scratchc, m_footpool, m_spreadbet, m_betex, m_onlgam, m_othgam)
   weight_vars      <- Hmisc::Cs(m_indinus_lw, m_indinui_xw)
 
   names <- c(id_vars, demographic_vars, prev_wave_vars, econ_stat_vars, income_vars, work_vars, employees_vars,
@@ -159,19 +160,19 @@ ukhls_read_wave13 <- function(
                          "m_scsf1","m_scsf2a","m_scsf2b","m_scsf3a","m_scsf3b","m_scsf4a","m_scsf4b","m_scsf5","m_scsf6a","m_scsf6b","m_scsf6c","m_scsf7",
                          "m_scghq1_dv","m_scghq2_dv",
                          ## health conditions
-                         "m_hconds01", "m_hconds03", "m_hconds04", "m_hconds05", "m_hconds08",
-                         "m_hconds10", "m_hconds11", "m_hconds12", "m_hconds15", "m_hconds16",
-                         "m_hconds21", "m_hconds23", "m_hconds24", "m_hconds25", "m_hconds26", "m_hconds27", "m_hconds28", "m_hconds29",
-                         "m_hconds30", "m_hconds31", "m_hconds32", "m_hconds33", "m_hconds34", "m_hconds35", "m_hconds36",
-                         "m_mhconds38", "m_mhconds39",
-                         "m_mhconds40", "m_mhconds41", "m_mhconds42",
-                         "m_mhconds54", "m_mhconds55", "m_mhconds56", "m_mhconds57", "m_mhconds59", "m_mhconds60", "m_mhconds61", "m_mhconds62", "m_mhconds63",
+                         #"m_hconds01", "m_hconds03", "m_hconds04", "m_hconds05", "m_hconds08",
+                         #"m_hconds10", "m_hconds11", "m_hconds12", "m_hconds15", "m_hconds16",
+                         #"m_hconds21", "m_hconds23", "m_hconds24", "m_hconds25", "m_hconds26", "m_hconds27", "m_hconds28", "m_hconds29",
+                         #"m_hconds30", "m_hconds31", "m_hconds32", "m_hconds33", "m_hconds34", "m_hconds35", "m_hconds36",
+                         #"m_mhconds38", "m_mhconds39",
+                         #"m_mhconds40", "m_mhconds41", "m_mhconds42",
+                         #"m_mhconds54", "m_mhconds55", "m_mhconds56", "m_mhconds57", "m_mhconds59", "m_mhconds60", "m_mhconds61", "m_mhconds62", "m_mhconds63",
 
-                         "m_hcondns1", "m_hcondns3", "m_hcondns4", "m_hcondns5", "m_hcondns6", "m_hcondns7", "m_hcondns8",
-                         "m_hcondns10", "m_hcondns11", "m_hcondns12", "m_hcondns15", "m_hcondns16", "m_hcondns19",
-                         "m_hcondns21", "m_hcondns23", "m_hcondns24", "m_hcondns26", "m_hcondns27", "m_hcondns28", "m_hcondns29",
-                         "m_hcondns30", "m_hcondns31", "m_hcondns33", "m_hcondns34", "m_hcondns35", "m_hcondns37", "m_hcondns38", "m_hcondns39",
-                         "m_hcondns40", "m_hcondns41", "m_hcondns42",
+                         #"m_hcondns1", "m_hcondns3", "m_hcondns4", "m_hcondns5", "m_hcondns6", "m_hcondns7", "m_hcondns8",
+                         #"m_hcondns10", "m_hcondns11", "m_hcondns12", "m_hcondns15", "m_hcondns16", "m_hcondns19",
+                         #"m_hcondns21", "m_hcondns23", "m_hcondns24", "m_hcondns26", "m_hcondns27", "m_hcondns28", "m_hcondns29",
+                         #"m_hcondns30", "m_hcondns31", "m_hcondns33", "m_hcondns34", "m_hcondns35", "m_hcondns37", "m_hcondns38", "m_hcondns39",
+                         #"m_hcondns40", "m_hcondns41", "m_hcondns42",
                          ## pregnancy variables
                          "m_preg",
                          "m_pregout1","m_pregend1","m_pregsmoke1","m_smkmnth11","m_smkmnth21","m_smkmnth31","m_pregsmk11","m_pregsmk21","m_pregsmk31","m_aedrof1","m_aepuwk1","m_aepuda1","m_lchmulti1",
@@ -232,19 +233,19 @@ ukhls_read_wave13 <- function(
                          "sf1","sf2a","sf2b","sf3a","sf3b","sf4a","sf4b","sf5","sf6a","sf6b","sf6c","sf7",
                          "ghq1","ghq2",
                          ## health conditions
-                         "hconds01", "hconds03", "hconds04", "hconds05", "hconds08",
-                         "hconds10", "hconds11", "hconds12", "hconds15", "hconds16",
-                         "hconds21", "hconds23", "hconds24", "hconds25", "hconds26", "hconds27", "hconds28", "hconds29",
-                         "hconds30", "hconds31", "hconds32", "hconds33", "hconds34", "hconds35", "hconds36",
-                         "mhconds38", "mhconds39",
-                         "mhconds40", "mhconds41", "mhconds42",
-                         "mhconds54", "mhconds55", "mhconds56", "mhconds57", "mhconds59", "mhconds60", "mhconds61", "mhconds62", "mhconds63",
+                         #"hconds01", "hconds03", "hconds04", "hconds05", "hconds08",
+                         #"hconds10", "hconds11", "hconds12", "hconds15", "hconds16",
+                         #"hconds21", "hconds23", "hconds24", "hconds25", "hconds26", "hconds27", "hconds28", "hconds29",
+                         #"hconds30", "hconds31", "hconds32", "hconds33", "hconds34", "hconds35", "hconds36",
+                         #"mhconds38", "mhconds39",
+                         #"mhconds40", "mhconds41", "mhconds42",
+                         #"mhconds54", "mhconds55", "mhconds56", "mhconds57", "mhconds59", "mhconds60", "mhconds61", "mhconds62", "mhconds63",
 
-                         "hcondns1", "hcondns3", "hcondns4", "hcondns5", "hcondns6", "hcondns7", "hcondns8",
-                         "hcondns10", "hcondns11", "hcondns12", "hcondns15", "hcondns16", "hcondns19",
-                         "hcondns21", "hcondns23", "hcondns24", "hcondns26", "hcondns27", "hcondns28", "hcondns29",
-                         "hcondns30", "hcondns31", "hcondns33", "hcondns34", "hcondns35", "hcondns37", "hcondns38", "hcondns39",
-                         "hcondns40", "hcondns41", "hcondns42",
+                         #"hcondns1", "hcondns3", "hcondns4", "hcondns5", "hcondns6", "hcondns7", "hcondns8",
+                         #"hcondns10", "hcondns11", "hcondns12", "hcondns15", "hcondns16", "hcondns19",
+                         #"hcondns21", "hcondns23", "hcondns24", "hcondns26", "hcondns27", "hcondns28", "hcondns29",
+                         #"hcondns30", "hcondns31", "hcondns33", "hcondns34", "hcondns35", "hcondns37", "hcondns38", "hcondns39",
+                         #"hcondns40", "hcondns41", "hcondns42",
                          ## pregnancy variables
                          "preg",
                          "pregout1","pregend1","pregsmoke1","smkmnth11","smkmnth21","smkmnth31","pregsmk_ncigs11","pregsmk_ncigs21","pregsmk_ncigs31","pregdrnk_freq1","pregdrnk_unitpw1","pregdrnk_unit1","lchmulti1",

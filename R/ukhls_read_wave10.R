@@ -93,6 +93,7 @@ ukhls_read_wave10 <- function(
                                 j_hcondns21, j_hcondns23, j_hcondns24, j_hcondns26, j_hcondns27, j_hcondns28, j_hcondns29,
                                 j_hcondns30, j_hcondns31, j_hcondns33, j_hcondns34, j_hcondns35, j_hcondns37, j_hcondns38, j_hcondns39,
                                 j_hcondns40, j_hcondns41, j_hcondns42)
+  health_cond_vars <- NULL
   preg_vars        <- Hmisc::Cs(j_preg,
                                 j_pregout1, j_pregend1, j_pregsmoke1, j_smkmnth11, j_smkmnth21, j_smkmnth31, j_pregsmk11, j_pregsmk21, j_pregsmk31, j_aedrof1, j_aepuwk1, j_aepuda1, j_lchmulti1,
                                 j_pregout2, j_pregend2, j_pregsmoke2, j_smkmnth12, j_smkmnth22, j_smkmnth32, j_pregsmk12, j_pregsmk22, j_pregsmk32, j_aedrof2, j_aepuwk2, j_aepuda2, j_lchmulti2,
@@ -159,17 +160,17 @@ ukhls_read_wave10 <- function(
                          "j_scsf1","j_scsf2a","j_scsf2b","j_scsf3a","j_scsf3b","j_scsf4a","j_scsf4b","j_scsf5","j_scsf6a","j_scsf6b","j_scsf6c","j_scsf7",
                          "j_scghq1_dv","j_scghq2_dv",
                          ## health condition variables
-                         "j_hconds01", "j_hconds03", "j_hconds04", "j_hconds05", "j_hconds08",
-                         "j_hconds10", "j_hconds11", "j_hconds12", "j_hconds15", "j_hconds16",
-                         "j_hconds21", "j_hconds23", "j_hconds24", "j_hconds25", "j_hconds26", "j_hconds27", "j_hconds28", "j_hconds29",
-                         "j_hconds30", "j_hconds31", "j_hconds32", "j_hconds33", "j_hconds34", "j_hconds35", "j_hconds36", "j_hconds37", "j_hconds38", "j_hconds39",
-                         "j_hconds40", "j_hconds41", "j_hconds42", "j_hconds43", "j_hconds97",
+                         #"j_hconds01", "j_hconds03", "j_hconds04", "j_hconds05", "j_hconds08",
+                         #"j_hconds10", "j_hconds11", "j_hconds12", "j_hconds15", "j_hconds16",
+                         #"j_hconds21", "j_hconds23", "j_hconds24", "j_hconds25", "j_hconds26", "j_hconds27", "j_hconds28", "j_hconds29",
+                         #"j_hconds30", "j_hconds31", "j_hconds32", "j_hconds33", "j_hconds34", "j_hconds35", "j_hconds36", "j_hconds37", "j_hconds38", "j_hconds39",
+                         #"j_hconds40", "j_hconds41", "j_hconds42", "j_hconds43", "j_hconds97",
 
-                         "j_hcondns1", "j_hcondns3", "j_hcondns4", "j_hcondns5", "j_hcondns6", "j_hcondns7", "j_hcondns8",
-                         "j_hcondns10", "j_hcondns11", "j_hcondns12", "j_hcondns15", "j_hcondns16", "j_hcondns19",
-                         "j_hcondns21", "j_hcondns23", "j_hcondns24", "j_hcondns26", "j_hcondns27", "j_hcondns28", "j_hcondns29",
-                         "j_hcondns30", "j_hcondns31", "j_hcondns33", "j_hcondns34", "j_hcondns35", "j_hcondns37", "j_hcondns38", "j_hcondns39",
-                         "j_hcondns40", "j_hcondns41", "j_hcondns42",
+                         #"j_hcondns1", "j_hcondns3", "j_hcondns4", "j_hcondns5", "j_hcondns6", "j_hcondns7", "j_hcondns8",
+                         #"j_hcondns10", "j_hcondns11", "j_hcondns12", "j_hcondns15", "j_hcondns16", "j_hcondns19",
+                         #"j_hcondns21", "j_hcondns23", "j_hcondns24", "j_hcondns26", "j_hcondns27", "j_hcondns28", "j_hcondns29",
+                         #"j_hcondns30", "j_hcondns31", "j_hcondns33", "j_hcondns34", "j_hcondns35", "j_hcondns37", "j_hcondns38", "j_hcondns39",
+                         #"j_hcondns40", "j_hcondns41", "j_hcondns42",
                          ## pregnancy variables
                          "j_pregout1","j_pregout2","j_pregout3",
                          ## smoke variables
@@ -225,17 +226,17 @@ ukhls_read_wave10 <- function(
                          "sf1","sf2a","sf2b","sf3a","sf3b","sf4a","sf4b","sf5","sf6a","sf6b","sf6c","sf7",
                          "ghq1","ghq2",
                          ## health condition variables
-                         "hconds01", "hconds03", "hconds04", "hconds05", "hconds08",
-                         "hconds10", "hconds11", "hconds12", "hconds15", "hconds16",
-                         "hconds21", "hconds23", "hconds24", "hconds25", "hconds26", "hconds27", "hconds28", "hconds29",
-                         "hconds30", "hconds31", "hconds32", "hconds33", "hconds34", "hconds35", "hconds36", "hconds37", "hconds38", "hconds39",
-                         "hconds40", "hconds41", "hconds42", "hconds43", "hconds97",
+                         #"hconds01", "hconds03", "hconds04", "hconds05", "hconds08",
+                         #"hconds10", "hconds11", "hconds12", "hconds15", "hconds16",
+                         #"hconds21", "hconds23", "hconds24", "hconds25", "hconds26", "hconds27", "hconds28", "hconds29",
+                         #"hconds30", "hconds31", "hconds32", "hconds33", "hconds34", "hconds35", "hconds36", "hconds37", "hconds38", "hconds39",
+                         #"hconds40", "hconds41", "hconds42", "hconds43", "hconds97",
 
-                         "hcondns1", "hcondns3", "hcondns4", "hcondns5", "hcondns6", "hcondns7", "hcondns8",
-                         "hcondns10", "hcondns11", "hcondns12", "hcondns15", "hcondns16", "hcondns19",
-                         "hcondns21", "hcondns23", "hcondns24", "hcondns26", "hcondns27", "hcondns28", "hcondns29",
-                         "hcondns30", "hcondns31", "hcondns33", "hcondns34", "hcondns35", "hcondns37", "hcondns38", "hcondns39",
-                         "hcondns40", "hcondns41", "hcondns42",
+                         #"hcondns1", "hcondns3", "hcondns4", "hcondns5", "hcondns6", "hcondns7", "hcondns8",
+                         #"hcondns10", "hcondns11", "hcondns12", "hcondns15", "hcondns16", "hcondns19",
+                         #"hcondns21", "hcondns23", "hcondns24", "hcondns26", "hcondns27", "hcondns28", "hcondns29",
+                         #"hcondns30", "hcondns31", "hcondns33", "hcondns34", "hcondns35", "hcondns37", "hcondns38", "hcondns39",
+                         #"hcondns40", "hcondns41", "hcondns42",
                          ## pregnancy variables
                          "pregout1","pregout2","pregout3",
                          ## smoke variables

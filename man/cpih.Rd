@@ -16,8 +16,8 @@ A data frame with 442 observations and 3 variables.
 cpih
 }
 \description{
-Returns the CPIH inflation index on a monthly basis with a base month of January 2024 Data are obtained from the
+Monthly CPIH inflation series with a base month of January 2026. Data are obtained from the
 \href{https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/l522/mm23}{ONS website}
-and the data were last updated 04-Dec-2024. Data are available up to Oct-2024.
+and the data were last updated 20-Feb-2026. Data are available up to Jan-2026.
 }
 \keyword{datasets}

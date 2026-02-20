@@ -4,7 +4,7 @@ library(data.table)
 library(magrittr)
 library(lubridate)
 
-base <- c(1,2024)
+base <- c(1,2026)
 
 #######################################
 ###### CPIH Monthly Inflation #########

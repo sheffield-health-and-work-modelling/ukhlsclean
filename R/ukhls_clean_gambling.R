@@ -12,14 +12,14 @@ ukhls_clean_gambling <- function(data = NULL) {
   #### wave 13 variables
   if("privbet" %in% colnames(data)) {
 
-    gamble_vars      <- Hmisc::CS(m_privbet, m_onlbet, m_natlot, m_olott, m_scratchc, m_footpool, m_spreadbet, m_betex, m_onlgam, m_othgam)
+    gamble_vars      <- Hmisc::Cs(m_privbet, m_onlbet, m_natlot, m_olott, m_scratchc, m_footpool, m_spreadbet, m_betex, m_onlgam, m_othgam)
 
     ## recode as dummies
     data[privbet   == 2, privbet := 0]
     data[onlbet    == 2, onlbet := 0]
     data[natlot    == 2, natlot := 0]
     data[olott     == 2, olott := 0]
-    data[scatchc   == 2, scatchc := 0]
+    data[scratchc  == 2, scratchc := 0]
     data[footpool  == 2, footpool := 0]
     data[spreadbet == 2, spreadbet := 0]
     data[betex     == 2, betex := 0]
@@ -33,7 +33,7 @@ ukhls_clean_gambling <- function(data = NULL) {
     data[, onlbet := NA]
     data[, natlot := NA]
     data[, olott := NA]
-    data[, scatchc := NA]
+    data[, scratchc := NA]
     data[, footpool := NA]
     data[, spreadbet := NA]
     data[, betex := NA]
@@ -47,11 +47,11 @@ ukhls_clean_gambling <- function(data = NULL) {
 
   final_data <- data[, c("pidp", "id", "hidp", "wave_no",
                          "privbet", "onlbet", "spreadbet",
-                         "natlot", "olott", "scatchc",
+                         "natlot", "olott", "scratchc",
                          "footpool","betex","onlgam","othgam")]
 
   var_names <- c("privbet", "onlbet", "spreadbet",
-                 "natlot", "olott", "scatchc",
+                 "natlot", "olott", "scratchc",
                  "footpool","betex","onlgam","othgam")
 
   setnames(final_data, var_names, paste0("g_", var_names))
