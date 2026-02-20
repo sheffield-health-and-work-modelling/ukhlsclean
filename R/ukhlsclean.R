@@ -23,9 +23,9 @@
 #' @export
 
 ukhlsclean <- function(root = "X:/",
-                       file = "HAR_PR/PR/USoc/Data/SN6614_2022_11_29/tab/ukhls",
-                       full = TRUE,
-                       waves = 1:14,
+                       file = "HAR_PR/PR/USoc/Data/SN6614_2026_02_20/tab/ukhls",
+                       full = FALSE,
+                       waves = 1:15,
                        ages = NULL,
                        country = NULL,
                        complete_vars = NULL,
@@ -212,6 +212,16 @@ if (14 %in% waves){
 
 }
 
+### Wave 15
+
+if (15 %in% waves){
+
+  wave <- ukhls_clean_global(ukhls_read_wave15(root = root, file = file, full = full),
+                             ages = ages, complete_vars = complete_vars, calendar_year = calendar_year, inflation = inflation)
+
+  data_list <- append(data_list, list(wave)) ; rm(wave)
+
+}
 
 #############################################################
 ### Combine all waves in the list into a single dataset and
@@ -269,10 +279,12 @@ data <- data[, wave := factor(wave, levels = c("UKHLS Wave 1", "UKHLS Wave 2", "
                                                "UKHLS Wave 4", "UKHLS Wave 5", "UKHLS Wave 6",
                                                "UKHLS Wave 7", "UKHLS Wave 8", "UKHLS Wave 9",
                                                "UKHLS Wave 10", "UKHLS Wave 11", "UKHLS Wave 12",
+                                               "UKHLS Wave 13", "UKHLS Wave 14", "UKHLS Wave 15",
                                                "UKHLS Youth Wave 1", "UKHLS Youth Wave 2", "UKHLS Youth Wave 3",
                                                "UKHLS Youth Wave 4", "UKHLS Youth Wave 5", "UKHLS Youth Wave 6",
                                                "UKHLS Youth Wave 7", "UKHLS Youth Wave 8", "UKHLS Youth Wave 9",
-                                               "UKHLS Youth Wave 10", "UKHLS Youth Wave 11", "UKHLS Youth Wave 12"
+                                               "UKHLS Youth Wave 10", "UKHLS Youth Wave 11", "UKHLS Youth Wave 12",
+                                               "UKHLS Youth Wave 13", "UKHLS Youth Wave 14", "UKHLS Youth Wave 15"
                                                ))]
 
 cat(crayon::bold(crayon::green("\tUKHLS Youth dataset appended")))
