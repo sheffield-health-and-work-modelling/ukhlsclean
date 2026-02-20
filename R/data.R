@@ -1,16 +1,3 @@
-#' Monthly Consumer Price Index
-#'
-#' Returns the CPIH inflation index on a monthly basis with a base month of January 2024 Data are obtained from the
-#' \href{https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/l522/mm23}{ONS website}
-#' and the data were last updated 04-Dec-2024. Data are available up to Oct-2024.
-#'
-#' @format A data frame with 442 observations and 3 variables.
-#' \describe{
-#'     \item{year}{}
-#'     \item{month}{}
-#'     \item{index}{}
-#' }
-"cpih"
 
 
 #' EQ-5D Coefficient Matrix
@@ -32,9 +19,9 @@
 
 #' Monthly Retail Price Index
 #'
-#' Returns the RPI inflation index on a monthly basis with a base month of January 2024 Data are obtained from the
+#' Monthly RPI inflation series with a base month of January 2026. Data are obtained from the
 #' \href{https://www.ons.gov.uk/generator?format=xls&uri=/economy/inflationandpriceindices/timeseries/cdko/mm23}{ONS website}
-#' and the data were last updated 01-Dec-2024. Data are available up to Oct-2024.
+#' and the data were last updated 20-Feb-2026. Data are available up to Jan-2026.
 #'
 #' @format A data frame with 929 observations and 3 variables.
 #' \describe{
@@ -43,3 +30,18 @@
 #'     \item{index}{}
 #' }
 "rpi"
+
+#' Monthly Consumer Price Index
+#'
+#' Monthly CPIH inflation series with a base month of January 2026. Data are obtained from the
+#' \href{https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/l522/mm23}{ONS website}
+#' and the data were last updated 20-Feb-2026. Data are available up to Jan-2026.
+#'
+#' @format A data frame with 442 observations and 3 variables.
+#' \describe{
+#'     \item{year}{}
+#'     \item{month}{}
+#'     \item{index}{}
+#' }
+"cpih"
+

@@ -16,8 +16,8 @@ A data frame with 929 observations and 3 variables.
 rpi
 }
 \description{
-Returns the RPI inflation index on a monthly basis with a base month of January 2024 Data are obtained from the
+Monthly RPI inflation series with a base month of January 2026. Data are obtained from the
 \href{https://www.ons.gov.uk/generator?format=xls&uri=/economy/inflationandpriceindices/timeseries/cdko/mm23}{ONS website}
-and the data were last updated 01-Dec-2024. Data are available up to Oct-2024.
+and the data were last updated 20-Feb-2026. Data are available up to Jan-2026.
 }
 \keyword{datasets}
