@@ -102,8 +102,12 @@ ukhls_clean_hhold <- function(data = NULL,
   merge[ , hh_fi_real_mo_socben     := hh_fi_mo_socben*(100/index)]
   }
 
+  ## rename OECD equivalence scale variable
+  setnames(merge, "ieqmoecd_dv", "hh_eq_scale_oecd")
+
   ##################
   ## RETAIN THE CLEANED VARIABLES
+
 
   if (calendar_year == TRUE){
     final_data <- data[, c("pidp", "id", "hidp", "wave_no",
@@ -118,7 +122,8 @@ ukhls_clean_hhold <- function(data = NULL,
                          "hh_fi_mo_grss", "hh_fi_mo_grsslabour",
                          "hh_fi_mo_net", "hh_fi_mo_netlabour", "hh_fi_mo_socben",
                          "hh_fi_real_mo_grss","hh_fi_real_mo_grsslabour",
-                         "hh_fi_real_mo_net","hh_fi_real_mo_netlabour","hh_fi_real_mo_socben")]
+                         "hh_fi_real_mo_net","hh_fi_real_mo_netlabour","hh_fi_real_mo_socben",
+                         "hh_eq_scale_oecd")]
   }
 
 

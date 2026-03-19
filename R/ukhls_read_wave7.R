@@ -234,7 +234,7 @@ ukhls_read_wave7 <- function(
   hhold_vars          <- Hmisc::Cs(g_hidp, g_tenure_dv, g_nkids_dv, g_hhsize, g_hhtype_dv,
                                    g_nch02_dv, g_nch34_dv, g_nch511_dv, g_nch1215_dv,
                                    g_fihhmngrs1_dv, g_fihhmnlabgrs_dv,
-                                   g_fihhmnnet1_dv, g_fihhmnlabnet_dv, g_fihhmnsben_dv)
+                                   g_fihhmnnet1_dv, g_fihhmnlabnet_dv, g_fihhmnsben_dv, g_ieqmoecd_dv)
 
   data.hhold <- data.hhold[ , hhold_vars, with = F]
   data.table::setnames(data.hhold,
@@ -242,12 +242,12 @@ ukhls_read_wave7 <- function(
                        c("g_hidp","g_tenure_dv","g_nkids_dv","g_hhsize","g_hhtype_dv",
                          "g_nch02_dv","g_nch34_dv","g_nch511_dv","g_nch1215_dv",
                          "g_fihhmngrs1_dv", "g_fihhmnlabgrs_dv",
-                         "g_fihhmnnet1_dv", "g_fihhmnlabnet_dv", "g_fihhmnsben_dv"),
+                         "g_fihhmnnet1_dv", "g_fihhmnlabnet_dv", "g_fihhmnsben_dv","g_ieqmoecd_dv"),
                        # new names
                        c("hidp","hh_tenure","hh_numchild","hh_size","hh_type",
                          "hh_numchild02","hh_numchild34","hh_numchild511","hh_numchild1215",
                          "hh_fihhmngrs1_dv", "hh_fihhmnlabgrs_dv",
-                         "hh_fihhmnnet1_dv", "hh_fihhmnlabnet_dv", "hh_fihhmnsben_dv"))
+                         "hh_fihhmnnet1_dv", "hh_fihhmnlabnet_dv", "hh_fihhmnsben_dv","ieqmoecd_dv"))
 
   hhold_merged <- merge(x = data,
                         y = data.hhold,
