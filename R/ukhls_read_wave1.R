@@ -84,11 +84,18 @@ ukhls_read_wave1 <- function(
   education_vars   <- Hmisc::Cs(a_hiqual_dv)
   health_vars      <- Hmisc::Cs(a_health,a_aidhh,a_sclfsat1,a_sclfsato,a_sf12pcs_dv,a_sf12mcs_dv,
                                 a_sf1,a_sf2a,a_sf2b,a_sf3a,a_sf3b,a_sf4a,a_sf4b,a_sf5,a_sf6a,a_sf6b,a_sf6c,a_sf7,
-                                a_scghq1_dv,a_scghq2_dv)
+                                a_scghq1_dv,a_scghq2_dv,
+                                a_scwemwba, a_scwemwbb, a_scwemwbc, a_scwemwbd, a_scwemwbe, a_scwemwbf, a_scwemwbg, a_swemwbs_dv)
+  health_cond_vars <- Hmisc::Cs(a_hcond1, a_hcond2, a_hcond3, a_hcond4, a_hcond5, a_hcond6, a_hcond7, a_hcond8, a_hcond9, a_hcond10, a_hcond11, a_hcond12, a_hcond13, a_hcond14, a_hcond15, a_hcond16, a_hcond17,
+
+                                a_hconds01, a_hconds02, a_hconds03, a_hconds04, a_hconds05, a_hconds06, a_hconds07, a_hconds08, a_hconds09, a_hconds10, a_hconds11, a_hconds12, a_hconds13, a_hconds14, a_hconds15, a_hconds16, a_hconds17
+                                )
   weight_vars      <- Hmisc::Cs(a_indinus_xw)
 
 
-  names <- c(id_vars, demographic_vars, econ_stat_vars, income_vars, work_vars, employees_vars, s.emp_vars, non.emp_vars, job2_vars, benefits_vars, pension_vars, receivables_vars, hhfinance_vars, education_vars, health_vars, weight_vars)
+  names <- c(id_vars, demographic_vars, econ_stat_vars, income_vars, work_vars, employees_vars, s.emp_vars,
+             non.emp_vars, job2_vars, benefits_vars, pension_vars, receivables_vars, hhfinance_vars, education_vars,
+             health_vars, health_cond_vars, weight_vars)
   names <- tolower(names)
 
   data <- data[ , names, with = F]
@@ -134,6 +141,10 @@ ukhls_read_wave1 <- function(
                          "a_health","a_aidhh","a_sclfsat1","a_sclfsato","a_sf12pcs_dv","a_sf12mcs_dv",
                          "a_sf1","a_sf2a","a_sf2b","a_sf3a","a_sf3b","a_sf4a","a_sf4b","a_sf5","a_sf6a","a_sf6b","a_sf6c","a_sf7",
                          "a_scghq1_dv","a_scghq2_dv",
+                         "a_scwemwba", "a_scwemwbb", "a_scwemwbc", "a_scwemwbd", "a_scwemwbe", "a_scwemwbf", "a_scwemwbg", "a_swemwbs_dv",
+                         ## health condition variables
+                         "a_hcond1", "a_hcond2", "a_hcond3", "a_hcond4", "a_hcond5", "a_hcond6", "a_hcond7", "a_hcond8", "a_hcond9", "a_hcond10", "a_hcond11", "a_hcond12", "a_hcond13", "a_hcond14", "a_hcond15", "a_hcond16", "a_hcond17",
+                         "a_hconds01", "a_hconds02", "a_hconds03", "a_hconds04", "a_hconds05", "a_hconds06", "a_hconds07", "a_hconds08", "a_hconds09", "a_hconds10", "a_hconds11", "a_hconds12", "a_hconds13", "a_hconds14", "a_hconds15", "a_hconds16", "a_hconds17",
                          ## weight
                          "a_indinus_xw"),
 
@@ -176,6 +187,10 @@ ukhls_read_wave1 <- function(
                          "lt_sick","caring","health_satisf","life_satisf","sf12_pcs","sf12_mcs",
                          "sf1","sf2a","sf2b","sf3a","sf3b","sf4a","sf4b","sf5","sf6a","sf6b","sf6c","sf7",
                          "ghq1","ghq2",
+                         "scwemwba", "scwemwbb", "scwemwbc", "scwemwbd", "scwemwbe", "scwemwbf", "scwemwbg", "swemwbs_dv",
+                         ## health condition variables
+                         "hcond1", "hcond2", "hcond3", "hcond4", "hcond5", "hcond6", "hcond7", "hcond8", "hcond9", "hcond10", "hcond11", "hcond12", "hcond13", "hcond14", "hcond15", "hcond16", "hcond17",
+                         "hconds01", "hconds02", "hconds03", "hconds04", "hconds05", "hconds06", "hconds07", "hconds08", "hconds09", "hconds10", "hconds11", "hconds12", "hconds13", "hconds14", "hconds15", "hconds16", "hconds17",
                          ## weight
                          "weight_xw"))
 

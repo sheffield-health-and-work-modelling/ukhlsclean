@@ -34,6 +34,7 @@ ukhls_clean_global <- function(data,
   main_data <- data[, c("pidp", "id", "hidp", "wave", "wave_no", "bhps_sample", ## Added wave (identifier)
                         "year", "month", "day", "weight_xw")]
 
+  print("demographics")
 
   ### demographics
 
@@ -49,8 +50,9 @@ ukhls_clean_global <- function(data,
 
   ### health conditions
 
-  #health_conditions <- ukhlsclean::ukhls_clean_health_conditions(data = data)
-
+  print("process health conditions")
+  health_conditions <- ukhlsclean::ukhls_clean_health_conditions(data = data)
+  print("health conditions processed")
   ### alcohol
 
   alcohol <- ukhlsclean::ukhls_clean_alcohol(data = data)
@@ -86,7 +88,7 @@ ukhls_clean_global <- function(data,
   merged_data <- merge(main_data, demographics,        by = c("pidp", "id", "hidp", "wave_no"))
   merged_data <- merge(merged_data, income,            by = c("pidp", "id", "hidp", "wave_no"))
   merged_data <- merge(merged_data, health,            by = c("pidp", "id", "hidp", "wave_no"))
-  #merged_data <- merge(merged_data, health_conditions, by = c("pidp", "id", "hidp", "wave_no"))
+  merged_data <- merge(merged_data, health_conditions, by = c("pidp", "id", "hidp", "wave_no"))
   merged_data <- merge(merged_data, alcohol,           by = c("pidp", "id", "hidp", "wave_no"))
   merged_data <- merge(merged_data, smoke,             by = c("pidp", "id", "hidp", "wave_no"))
   merged_data <- merge(merged_data, gambling,          by = c("pidp", "id", "hidp", "wave_no"))

@@ -82,18 +82,14 @@ ukhls_read_wave12 <- function(
                                 l_scsf1, l_scsf2a, l_scsf2b, l_scsf3a, l_scsf3b, l_scsf4a, l_scsf4b, l_scsf5, l_scsf6a,
                                 l_scsf6b, l_scsf6c, l_scsf7,
                                 l_scghq1_dv,l_scghq2_dv)
-  health_cond_vars <- Hmisc::Cs(l_hconds01, l_hconds03, l_hconds04, l_hconds05, l_hconds08,
-                                l_hconds10, l_hconds11, l_hconds12, l_hconds15, l_hconds16,
-                                l_hconds21, l_hconds23, l_hconds24, l_hconds25, l_hconds26, l_hconds27, l_hconds28, l_hconds29,
-                                l_hconds30, l_hconds31, l_hconds32, l_hconds33, l_hconds34, l_hconds35, l_hconds36, l_hconds37, l_hconds38, l_hconds39,
-                                l_hconds40, l_hconds41, l_hconds42, l_hconds43, l_hconds97,
+  health_cond_vars <- Hmisc::Cs(l_hcond1, l_hcond2, l_hcond3, l_hcond4, l_hcond5, l_hcond6, l_hcond7, l_hcond8, l_hcond10, l_hcond11, l_hcond12, l_hcond13, l_hcond14, l_hcond15, l_hcond16, l_hcond21,
 
-                                l_hcondns1, l_hcondns3, l_hcondns4, l_hcondns5, l_hcondns6, l_hcondns7, l_hcondns8,
-                                l_hcondns10, l_hcondns11, l_hcondns12, l_hcondns15, l_hcondns16, l_hcondns19,
-                                l_hcondns21, l_hcondns23, l_hcondns24, l_hcondns26, l_hcondns27, l_hcondns28, l_hcondns29,
-                                l_hcondns30, l_hcondns31, l_hcondns33, l_hcondns34, l_hcondns35, l_hcondns37, l_hcondns38, l_hcondns39,
-                                l_hcondns40, l_hcondns41, l_hcondns42)
-  health_cond_vars <- NULL
+                                l_hcondnew1, l_hcondnew2, l_hcondnew3, l_hcondnew4, l_hcondnew5, l_hcondnew6, l_hcondnew7, l_hcondnew8, l_hcondnew10, l_hcondnew11, l_hcondnew12, l_hcondnew13, l_hcondnew14, l_hcondnew15, l_hcondnew16, l_hcondnew21,
+
+                                l_hconds01, l_hconds03, l_hconds04, l_hconds05, l_hconds08, l_hconds10, l_hconds11, l_hconds12, l_hconds15, l_hconds16, l_hconds21,
+                                l_hconds23, l_hconds24, l_hconds26, l_hconds27, l_hconds28, l_hconds29, l_hconds30, l_hconds31, l_hconds33, l_hconds34, l_hconds35
+  )
+  health_care_vars <- Hmisc::Cs(l_hl2gp, l_hl2hop, l_hosp, l_hospd)
   preg_vars        <- Hmisc::Cs(l_preg,
                                 l_pregout1, l_pregend1, l_pregsmoke1, l_smkmnth11, l_smkmnth21, l_smkmnth31, l_pregsmk11, l_pregsmk21, l_pregsmk31, l_aedrof1, l_aepuwk1, l_aepuda1, l_lchmulti1,
                                 l_pregout2, l_pregend2, l_pregsmoke2, l_smkmnth12, l_smkmnth22, l_smkmnth32, l_pregsmk12, l_pregsmk22, l_pregsmk32, l_aedrof2, l_aepuwk2, l_aepuda2, l_lchmulti2,
@@ -105,7 +101,7 @@ ukhls_read_wave12 <- function(
 
   names <- c(id_vars, demographic_vars, prev_wave_vars, econ_stat_vars, income_vars, work_vars, employees_vars,
              s.emp_vars, non.emp_vars, job2_vars, benefits_vars, pension_vars, bendis_vars, otherben_vars,
-             benincome_vars, hhfinance_vars, education_vars, health_vars, health_cond_vars, preg_vars, smoke_vars, alc_vars, weight_vars)
+             benincome_vars, hhfinance_vars, education_vars, health_vars, health_care_vars, health_cond_vars, preg_vars, smoke_vars, alc_vars, weight_vars)
   names <- tolower(names)
 
   data <- data[ , names, with = F]
@@ -156,17 +152,12 @@ ukhls_read_wave12 <- function(
                          "l_scsf1","l_scsf2a","l_scsf2b","l_scsf3a","l_scsf3b","l_scsf4a","l_scsf4b","l_scsf5","l_scsf6a","l_scsf6b","l_scsf6c","l_scsf7",
                          "l_scghq1_dv","l_scghq2_dv",
                          ## health condition variables
-                         #"l_hconds01", "l_hconds03", "l_hconds04", "l_hconds05", "l_hconds08",
-                         #"l_hconds10", "l_hconds11", "l_hconds12", "l_hconds15", "l_hconds16",
-                         #"l_hconds21", "l_hconds23", "l_hconds24", "l_hconds25", "l_hconds26", "l_hconds27", "l_hconds28", "l_hconds29",
-                         #"l_hconds30", "l_hconds31", "l_hconds32", "l_hconds33", "l_hconds34", "l_hconds35", "l_hconds36", "l_hconds37", "l_hconds38", "l_hconds39",
-                         #"l_hconds40", "l_hconds41", "l_hconds42", "l_hconds43", "l_hconds97",
-
-                         #"l_hcondns1", "l_hcondns3", "l_hcondns4", "l_hcondns5", "l_hcondns6", "l_hcondns7", "l_hcondns8",
-                         #"l_hcondns10", "l_hcondns11", "l_hcondns12", "l_hcondns15", "l_hcondns16", "l_hcondns19",
-                         #"l_hcondns21", "l_hcondns23", "l_hcondns24", "l_hcondns26", "l_hcondns27", "l_hcondns28", "l_hcondns29",
-                         #"l_hcondns30", "l_hcondns31", "l_hcondns33", "l_hcondns34", "l_hcondns35", "l_hcondns37", "l_hcondns38", "l_hcondns39",
-                         #"l_hcondns40", "l_hcondns41", "l_hcondns42",
+                         "l_hcond1", "l_hcond2", "l_hcond3", "l_hcond4", "l_hcond5", "l_hcond6", "l_hcond7", "l_hcond8", "l_hcond10", "l_hcond11", "l_hcond12", "l_hcond13", "l_hcond14", "l_hcond15", "l_hcond16", "l_hcond21",
+                         "l_hcondnew1", "l_hcondnew2", "l_hcondnew3", "l_hcondnew4", "l_hcondnew5", "l_hcondnew6", "l_hcondnew7", "l_hcondnew8", "l_hcondnew10", "l_hcondnew11", "l_hcondnew12", "l_hcondnew13", "l_hcondnew14", "l_hcondnew15", "l_hcondnew16", "l_hcondnew21",
+                         "l_hconds01", "l_hconds03", "l_hconds04", "l_hconds05", "l_hconds08", "l_hconds10", "l_hconds11", "l_hconds12", "l_hconds15", "l_hconds16", "l_hconds21",
+                         "l_hconds23", "l_hconds24", "l_hconds26", "l_hconds27", "l_hconds28", "l_hconds29", "l_hconds30", "l_hconds31", "l_hconds33", "l_hconds34", "l_hconds35",
+                         ## health care utilisation variables
+                         "l_hl2gp", "l_hl2hop", "l_hosp", "l_hospd",
                          ## pregnancy variables
                          "l_preg",
                          "l_pregout1","l_pregend1","l_pregsmoke1","l_smkmnth11","l_smkmnth21","l_smkmnth31","l_pregsmk11","l_pregsmk21","l_pregsmk31","l_aedrof1","l_aepuwk1","l_aepuda1","l_lchmulti1",
@@ -226,17 +217,12 @@ ukhls_read_wave12 <- function(
                          "sf1","sf2a","sf2b","sf3a","sf3b","sf4a","sf4b","sf5","sf6a","sf6b","sf6c","sf7",
                          "ghq1","ghq2",
                          ## health condition variables
-                         #"hconds01", "hconds03", "hconds04", "hconds05", "hconds08",
-                         #"hconds10", "hconds11", "hconds12", "hconds15", "hconds16",
-                         #"hconds21", "hconds23", "hconds24", "hconds25", "hconds26", "hconds27", "hconds28", "hconds29",
-                         #"hconds30", "hconds31", "hconds32", "hconds33", "hconds34", "hconds35", "hconds36", "hconds37", "hconds38", "hconds39",
-                         #"hconds40", "hconds41", "hconds42", "hconds43", "hconds97",
-
-                         #"hcondns1", "hcondns3", "hcondns4", "hcondns5", "hcondns6", "hcondns7", "hcondns8",
-                         #"hcondns10", "hcondns11", "hcondns12", "hcondns15", "hcondns16", "hcondns19",
-                         #"hcondns21", "hcondns23", "hcondns24", "hcondns26", "hcondns27", "hcondns28", "hcondns29",
-                         #"hcondns30", "hcondns31", "hcondns33", "hcondns34", "hcondns35", "hcondns37", "hcondns38", "hcondns39",
-                         #"hcondns40", "hcondns41", "hcondns42",
+                         "hcond1", "hcond2", "hcond3", "hcond4", "hcond5", "hcond6", "hcond7", "hcond8", "hcond10", "hcond11", "hcond12", "hcond13", "hcond14", "hcond15", "hcond16", "hcond21",
+                         "hcondnew1", "hcondnew2", "hcondnew3", "hcondnew4", "hcondnew5", "hcondnew6", "hcondnew7", "hcondnew8", "hcondnew10", "hcondnew11", "hcondnew12", "hcondnew13", "hcondnew14", "hcondnew15", "hcondnew16", "hcondnew21",
+                         "hconds01", "hconds03", "hconds04", "hconds05", "hconds08", "hconds10", "hconds11", "hconds12", "hconds15", "hconds16", "hconds21",
+                         "hconds23", "hconds24", "hconds26", "hconds27", "hconds28", "hconds29", "hconds30", "hconds31", "hconds33", "hconds34", "hconds35",
+                         ## health care utilisation variables
+                         "hl2gp", "hl2hop", "hosp", "hospd",
                          ## pregnancy variables
                          "preg",
                          "pregout1","pregend1","pregsmoke1","smkmnth11","smkmnth21","smkmnth31","pregsmk_ncigs11","pregsmk_ncigs21","pregsmk_ncigs31","pregdrnk_freq1","pregdrnk_unitpw1","pregdrnk_unit1","lchmulti1",
