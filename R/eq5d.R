@@ -321,7 +321,8 @@ MapEQ5D <- function(data,
   health_util_data[eqmob_est != 1 | eqcare_est != 1 | equact_est != 1 | eqpain_est != 1 | eqanx_est != 1, eq5d_score := eq5d_score - 0.081]
   health_util_data[eqmob_est == 3 | eqcare_est == 3 | equact_est == 3 | eqpain_est == 3 | eqanx_est == 3, eq5d_score := eq5d_score - 0.269]
 
-  out <- health_util_data[, c("pidp", "id","wave_no","eq5d_score")]
+  out <- health_util_data[, c("pidp", "id","wave_no","eq5d_score",
+                             "eqmob_est","eqcare_est","equact_est","eqpain_est","eqanx_est")]
 
   return(out)
 
