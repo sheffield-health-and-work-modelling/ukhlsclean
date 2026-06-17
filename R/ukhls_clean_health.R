@@ -183,13 +183,17 @@ ukhls_clean_health <- function(data = NULL) {
 
   final_data <- merged_data[, c("pidp", "id", "hidp", "wave_no",
                                 "scwemwba","scwemwbb","scwemwbc","scwemwbd","scwemwbe","scwemwbf","scwemwbg","swemwbs_dv",
-                                "eq5d_score", "sf12_pcs","sf12_mcs",
+                                "eq5d_score", "eqmob_est","eqcare_est","equact_est","eqpain_est","eqanx_est", 
+                                "sfstat", "sfmode", "sfstaira", "sfless", "sflimit", "sflesse", "sfcarful", "sfpainb", "sfcalm", "sfener", "sflow", "sfvisit",
+                                "sf12_pcs","sf12_mcs",
                                 "pregnant", "disability", "care_hhold",
                                 "satisfaction_health", "satisfaction_life",
                                 "gp_use", "hosp_out", "hosp_in_days")]
 
   var_names <- c("scwemwba","scwemwbb","scwemwbc","scwemwbd","scwemwbe","scwemwbf","scwemwbg","swemwbs_dv",
-                 "eq5d_score", "sf12_pcs","sf12_mcs",
+                 "eq5d_score", "eqmob_est","eqcare_est","equact_est","eqpain_est","eqanx_est", 
+                 "sfstat", "sfmode", "sfstaira", "sfless", "sflimit", "sflesse", "sfcarful", "sfpainb", "sfcalm", "sfener", "sflow", "sfvisit",
+                 "sf12_pcs","sf12_mcs",
                  "pregnant", "disability", "care_hhold",
                  "satisfaction_health", "satisfaction_life",
                  "gp_use", "hosp_out", "hosp_in_days")
