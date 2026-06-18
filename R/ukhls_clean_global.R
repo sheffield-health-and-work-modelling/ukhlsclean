@@ -50,9 +50,7 @@ ukhls_clean_global <- function(data,
 
   ### health conditions
 
-  print("process health conditions")
   health_conditions <- ukhlsclean::ukhls_clean_health_conditions(data = data)
-  print("health conditions processed")
   ### alcohol
 
   alcohol <- ukhlsclean::ukhls_clean_alcohol(data = data)
