@@ -25,7 +25,6 @@ ukhls_clean_health_conditions <- function(data = NULL) {
   # =========================================================================
 
   if (is_wave1){
-    print("Wave 1")
 
     ## ========= RESPIRATORY CONDITIONS ================================== ##
 
@@ -258,7 +257,6 @@ ukhls_clean_health_conditions <- function(data = NULL) {
   } ## end wave 1 processing
 
   if (is_wave2){
-    print("Wave 2")
 
     data[, cond1_asthma := NA]
     data[, cond8_emphysema := NA]
@@ -299,7 +297,6 @@ ukhls_clean_health_conditions <- function(data = NULL) {
   # =========================================================================
 
   if (is_wave3to9) {
-    print("Wave 3-9")
 
     ## ========= RESPIRATORY CONDITIONS ================================== ##
 
@@ -591,7 +588,6 @@ ukhls_clean_health_conditions <- function(data = NULL) {
   ## variable
 
   if (is_wave10){
-    print("Wave 10")
 
     ## ========= RESPIRATORY CONDITIONS ================================== ##
 
