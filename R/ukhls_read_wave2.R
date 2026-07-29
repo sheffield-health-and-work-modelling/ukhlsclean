@@ -61,7 +61,7 @@ ukhls_read_wave2 <- function(
   prev_wave_vars   <- Hmisc::Cs(b_notempchk, b_empchk)
   econ_stat_vars   <- Hmisc::Cs(b_jbstat, b_jbhas, b_jboff, b_jboffy, b_jbterm1, b_jbterm2, b_jbsemp, b_jbpen, b_jbpenm)
   income_vars      <- Hmisc::Cs(b_fimnnet_dv, b_fimngrs_dv,
-                                b_fimnlabnet_dv, b_fimnmisc_dv, b_fimnprben_dv, b_fimninvnet_dv, b_fimnpen_dv, b_fimnsben_dv)
+                                b_fimnlabnet_dv, b_fimnlabgrs_dv, b_fimnmisc_dv, b_fimnprben_dv, b_fimninvnet_dv, b_fimnpen_dv, b_fimnsben_dv)
   work_vars        <- Hmisc::Cs(b_paygu_dv, b_payg_dv, b_jbhrs, b_fimnlabgrs_dv, b_seearngrs_dv, b_jbsic07_cc, b_jbot, b_jbotpd,
                                 b_jbnssec_dv, b_jbnssec3_dv, b_jbnssec5_dv, b_jbnssec8_dv, b_jbsize)
   employees_vars   <- Hmisc::Cs(b_paygl, b_paynl, b_payu, b_payug, b_ovtpay, b_extnsa, b_extrate, b_extrest, b_basnsa, b_basrate, b_basrest, b_ovtnsa, b_ovtrate, b_ovtrest)
@@ -108,7 +108,7 @@ ukhls_read_wave2 <- function(
                          "b_jbstat","b_jbhas","b_jboff","b_jboffy","b_jbterm1","b_jbterm2","b_jbsemp","b_jbpen","b_jbpenm",
                          ## income variables
                          "b_fimnnet_dv", "b_fimngrs_dv",
-                         "b_fimnlabnet_dv", "b_fimnmisc_dv", "b_fimnprben_dv", "b_fimninvnet_dv", "b_fimnpen_dv", "b_fimnsben_dv",
+                         "b_fimnlabnet_dv", "b_fimnlabgrs_dv", "b_fimnmisc_dv", "b_fimnprben_dv", "b_fimninvnet_dv", "b_fimnpen_dv", "b_fimnsben_dv",
                          ## work variables
                          "b_paygu_dv","b_payg_dv","b_jbhrs","b_fimnlabgrs_dv","b_seearngrs_dv","b_jbsic07_cc","b_jbot","b_jbotpd",
                          "b_jbnssec_dv","b_jbnssec3_dv","b_jbnssec5_dv","b_jbnssec8_dv", "b_jbsize",
@@ -162,7 +162,7 @@ ukhls_read_wave2 <- function(
                          "econ_stat","jbhas","jboff","jboffy","jbterm1","jbterm2","jbsemp","jbpen","jbpen_member",
                          ## income variables
                          "fimnnet_dv", "fimngrs_dv",
-                         "fimnlabnet_dv", "fimnmisc_dv", "fimnprben_dv", "fimninvnet_dv", "fimnpen_dv", "fimnsben_dv",
+                         "fimnlabnet_dv", "fimnlabgrs_dv", "fimnmisc_dv", "fimnprben_dv", "fimninvnet_dv", "fimnpen_dv", "fimnsben_dv",
                          ## work variables
                          "grss_pay_usual","grss_pay_last","hours","grss_lab_inc","grss_semp","sic07","ovthours_pw","ovthours_paid",
                          "nssec","nssec_3cat","nssec_5cat","nssec_8cat", "jbsize",

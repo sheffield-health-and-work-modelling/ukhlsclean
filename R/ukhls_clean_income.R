@@ -13,6 +13,7 @@ ukhls_clean_income <- function(data = NULL) {
   data[, income_grs := fimngrs_dv]
 
   data[, lab_income_net  := fimnlabnet_dv]
+  data[, lab_income_grs  := fimnlabgrs_dv]
   data[, misc_income_net := fimnmisc_dv]
   data[, priv_income_net := fimnprben_dv]
   data[, inv_income_net  := fimninvnet_dv]
@@ -25,12 +26,12 @@ ukhls_clean_income <- function(data = NULL) {
 
   final_data <- data[, c("pidp", "id", "hidp", "wave_no",
                          "income_net", "income_grs",
-                         "lab_income_net", "misc_income_net", "priv_income_net",
+                         "lab_income_net", "lab_income_grs","misc_income_net", "priv_income_net",
                          "inv_income_net", "pens_income_net", "ben_income_net")]
 
 
   var_names <- c("income_net", "income_grs",
-                 "lab_income_net", "misc_income_net", "priv_income_net",
+                 "lab_income_net", "lab_income_grs", "misc_income_net", "priv_income_net",
                  "inv_income_net", "pens_income_net", "ben_income_net")
 
   setnames(final_data, var_names, paste0("y_", var_names))
