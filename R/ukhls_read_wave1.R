@@ -68,10 +68,6 @@ ukhls_read_wave1 <- function(
                                 a_fimnlabnet_dv, a_fimnlabgrs_dv, a_fimnmisc_dv, a_fimnprben_dv, a_fimninvnet_dv, a_fimnpen_dv, a_fimnsben_dv)
   work_vars        <- Hmisc::Cs(a_paygu_dv,a_payg_dv,a_jbhrs,a_fimnlabgrs_dv,a_seearngrs_dv, a_jbsic07_cc, a_jbot, a_jbotpd,
                                 a_jbnssec_dv, a_jbnssec3_dv, a_jbnssec5_dv, a_jbnssec8_dv, a_jbsize)
-  employees_vars   <- Hmisc::Cs(a_paygl, a_paynl, a_payu, a_payug, a_ovtpay, a_extnsa, a_extrate, a_extrest, a_basnsa, a_basrate, a_basrest, a_ovtnsa, a_ovtrate, a_ovtrest)
-  s.emp_vars       <- Hmisc::Cs(a_jshrs, a_jspayu, a_jspytx, a_jspyni)
-  non.emp_vars     <- Hmisc::Cs(a_jbhad)
-  job2_vars        <- Hmisc::Cs(a_j2has, a_j2semp, a_j2hrs, a_j2pay)
   benefits_vars    <- Hmisc::Cs(a_btype1, a_btype2, a_btype3, a_btype4, a_btype5, a_btype6, a_btype7, a_btype8, a_btype9, a_btype96,
                                 a_benunemp1, a_benunemp2, a_benunemp96, a_bendis1, a_bendis2, a_bendis3, a_bendis4, a_bendis5, a_bendis6, a_bendis7,
                                 a_bendis8, a_bendis9, a_bendis10, a_bendis11, a_bendis96)
@@ -93,8 +89,8 @@ ukhls_read_wave1 <- function(
   weight_vars      <- Hmisc::Cs(a_indinus_xw)
 
 
-  names <- c(id_vars, demographic_vars, econ_stat_vars, income_vars, work_vars, employees_vars, s.emp_vars,
-             non.emp_vars, job2_vars, benefits_vars, pension_vars, receivables_vars, hhfinance_vars, education_vars,
+  names <- c(id_vars, demographic_vars, econ_stat_vars, income_vars, work_vars,
+             benefits_vars, pension_vars, receivables_vars, hhfinance_vars, education_vars,
              health_vars, health_cond_vars, weight_vars)
   names <- tolower(names)
 
@@ -113,15 +109,6 @@ ukhls_read_wave1 <- function(
                          ## work variables
                          "a_paygu_dv","a_payg_dv","a_jbhrs","a_fimnlabgrs_dv","a_seearngrs_dv","a_jbsic07_cc","a_jbot","a_jbotpd",
                          "a_jbnssec_dv","a_jbnssec3_dv","a_jbnssec5_dv","a_jbnssec8_dv","a_jbsize",
-                         ## employees
-                         "a_paygl","a_paynl","a_payu","a_payug","a_ovtpay","a_extnsa","a_extrate","a_extrest","a_basnsa","a_basrate",
-                         "a_basrest","a_ovtnsa","a_ovtrate","a_ovtrest",
-                         ## self-employed
-                         "a_jshrs","a_jspayu","a_jspytx","a_jspyni",
-                         ## non-employed
-                         "a_jbhad",
-                         ## second job
-                         "a_j2has","a_j2semp","a_j2hrs","a_j2pay",
                          ## benefits
                          "a_btype1","a_btype2","a_btype3","a_btype4","a_btype5","a_btype6","a_btype7","a_btype8","a_btype9","a_btype96",
                          "a_benunemp1","a_benunemp2","a_benunemp96","a_bendis1","a_bendis2","a_bendis3","a_bendis4","a_bendis5","a_bendis6","a_bendis7",
@@ -159,15 +146,6 @@ ukhls_read_wave1 <- function(
                          ## work variables
                          "grss_pay_usual","grss_pay_last","hours","grss_lab_inc","grss_semp","sic07","ovthours_pw","ovthours_paid",
                          "nssec","nssec_3cat","nssec_5cat","nssec_8cat", "jbsize",
-                         ## employees
-                         "last_gross_pay","last_net_pay","usual_pay","payug","ovtpay","extnsa","extrate","ext_estimate","baspay_amount","baspay_rate",
-                         "baspay_estimate","ovtpay_amount","ovtpay_rate","ovtpay_estimate",
-                         ## self-employed
-                         "s.emp_hours","s.emp_pay","s.emp_pay_pretax","s.emp_pay_preNI",
-                         ## non-employed
-                         "jbhad",
-                         ## second job
-                         "2ndjb","2ndjb_s.emp","2ndjb_hours","2ndjob_pay",
                          ## benefits
                          "btype1","btype2","btype3","btype4","btype5","btype6","btype7","btype8","btype9","btype96",
                          "benunemp1","benunemp2","benunemp96","bendis1","bendis2","bendis3","bendis4","bendis5","bendis6","bendis7",

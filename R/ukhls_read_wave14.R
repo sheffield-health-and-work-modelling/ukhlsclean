@@ -64,10 +64,6 @@ ukhls_read_wave14 <- function(
                                 n_fimnlabnet_dv, n_fimnlabgrs_dv, n_fimnmisc_dv, n_fimnprben_dv, n_fimninvnet_dv, n_fimnpen_dv, n_fimnsben_dv)
   work_vars        <- Hmisc::Cs(n_paygu_dv, n_payg_dv, n_jbhrs, n_fimnlabgrs_dv, n_seearngrs_dv, n_jbsic07_cc, n_jbot, n_jbotpd,
                                 n_jbnssec_dv, n_jbnssec3_dv, n_jbnssec5_dv, n_jbnssec8_dv, n_jbsize)
-  employees_vars   <- Hmisc::Cs(n_paygl, n_paynl, n_payu, n_payug, n_paytyp, n_ovtpay, n_pvtpyset, n_extrate, n_basnset, n_basrate, n_ovtnset, n_ovtrate)
-  s.emp_vars       <- Hmisc::Cs(n_jshrs, n_jspayu, n_jspytx, n_jspyni)
-  non.emp_vars     <- Hmisc::Cs(n_jbhad)
-  job2_vars        <- NULL #Hmisc::Cs(n_j2has, n_j2semp, n_j2hrs, n_j2pay)
   benefits_vars    <- Hmisc::Cs(n_benbase1, n_benbase2, n_benbase3, n_benbase4, n_benbase96,
                                 n_benctc)
   pension_vars     <- Hmisc::Cs(n_benpen1, n_benpen2, n_benpen3, n_benpen4, n_benpen5, n_benpen6, n_benpen7, n_benpen8, n_benpen96)
@@ -98,9 +94,9 @@ ukhls_read_wave14 <- function(
   alc_vars         <- NULL #Hmisc::Cs(n_auditc1, n_auditc2, n_auditc3, n_auditc4, n_auditc5)
   weight_vars      <- Hmisc::Cs(n_indinus_lw, n_inding2_xw)
 
-  names <- c(id_vars, demographic_vars, prev_wave_vars, econ_stat_vars, income_vars, work_vars, employees_vars,
-             s.emp_vars, non.emp_vars, job2_vars, benefits_vars, pension_vars, bendis_vars, otherben_vars,
-             benincome_vars, hhfinance_vars, education_vars, health_vars, health_care_vars, health_cond_vars, preg_vars, smoke_vars, alc_vars, weight_vars)
+  names <- c(id_vars, demographic_vars, prev_wave_vars, econ_stat_vars, income_vars, work_vars,
+             benefits_vars, pension_vars, bendis_vars, otherben_vars, benincome_vars, hhfinance_vars, education_vars, health_vars,
+             health_care_vars, health_cond_vars, preg_vars, smoke_vars, alc_vars, weight_vars)
   names <- tolower(names)
 
   data <- data[ , names, with = F]
@@ -120,15 +116,6 @@ ukhls_read_wave14 <- function(
                          ## work variables
                          "n_paygu_dv","n_payg_dv","n_jbhrs","n_fimnlabgrs_dv","n_seearngrs_dv","n_jbsic07_cc","n_jbot","n_jbotpd",
                          "n_jbnssec_dv","n_jbnssec3_dv","n_jbnssec5_dv","n_jbnssec8_dv", "n_jbsize",
-                         ## employees
-                         "n_paygl","n_paynl","n_payu","n_payug","n_paytyp","n_ovtpay","n_pvtpyset","n_extrate","n_basnset","n_basrate",
-                         "n_ovtnset","n_ovtrate",
-                         ## self-employed
-                         "n_jshrs","n_jspayu","n_jspytx","n_jspyni",
-                         ## non-employed
-                         "n_jbhad",
-                         ## second job
-
                          ## benefits
                          "n_benbase1","n_benbase2","n_benbase3","n_benbase4","n_benbase96",
                          "n_benctc",
@@ -183,15 +170,6 @@ ukhls_read_wave14 <- function(
                          ## work variables
                          "grss_pay_usual","grss_pay_last","hours","grss_lab_inc","grss_semp","sic07","ovthours_pw","ovthours_paid",
                          "nssec","nssec_3cat","nssec_5cat","nssec_8cat", "jbsize",
-                         ## employees
-                         "last_gross_pay","last_net_pay","usuam_pay","payug","pay_type","ovtpay","additional.pay_set","extrate","basic.pay_set","baspay_rate",
-                         "ovt.pay_set","ovtpay_rate",
-                         ## self-employed
-                         "s.emp_hours","s.emp_pay","s.emp_pay_pretax","s.emp_pay_preNI",
-                         ## non-employed
-                         "jbhad",
-                         ## second job
-
                          ## benefits
                          "benbase1","benbase2","benbase3","benbase4","benbase96",
                          "benctc",

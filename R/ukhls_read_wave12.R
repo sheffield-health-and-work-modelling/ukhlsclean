@@ -64,10 +64,6 @@ ukhls_read_wave12 <- function(
                                 l_fimnlabnet_dv, l_fimnlabgrs_dv, l_fimnmisc_dv, l_fimnprben_dv, l_fimninvnet_dv, l_fimnpen_dv, l_fimnsben_dv)
   work_vars        <- Hmisc::Cs(l_paygu_dv, l_payg_dv, l_jbhrs, l_fimnlabgrs_dv, l_seearngrs_dv, l_jbsic07_cc, l_jbot, l_jbotpd,
                                 l_jbnssec_dv, l_jbnssec3_dv, l_jbnssec5_dv, l_jbnssec8_dv, l_jbsize)
-  employees_vars   <- Hmisc::Cs(l_paygl, l_paynl, l_payu, l_payug, l_paytyp, l_ovtpay, l_pvtpyset, l_extrate, l_extrest, l_basnset, l_basrate, l_basrest, l_ovtnset, l_ovtrate, l_ovtrest)
-  s.emp_vars       <- Hmisc::Cs(l_jshrs, l_jspayu, l_jspytx, l_jspyni)
-  non.emp_vars     <- Hmisc::Cs(l_jbhad)
-  job2_vars        <- Hmisc::Cs(l_j2has, l_j2semp, l_j2hrs, l_j2pay)
   benefits_vars    <- Hmisc::Cs(l_benbase1, l_benbase2, l_benbase3, l_benbase4, l_benbase96,
                                 l_benctc)
   pension_vars     <- Hmisc::Cs(l_benpen1, l_benpen2, l_benpen3, l_benpen4, l_benpen5, l_benpen6, l_benpen7, l_benpen8, l_benpen96)
@@ -99,9 +95,9 @@ ukhls_read_wave12 <- function(
   alc_vars         <- Hmisc::Cs(l_dklm, l_drnk4w, l_evralc, l_fivealcdr, l_auditc1, l_auditc2, l_auditc3, l_auditc4, l_auditc5)
   weight_vars      <- Hmisc::Cs(l_indinus_lw, l_indinui_xw)
 
-  names <- c(id_vars, demographic_vars, prev_wave_vars, econ_stat_vars, income_vars, work_vars, employees_vars,
-             s.emp_vars, non.emp_vars, job2_vars, benefits_vars, pension_vars, bendis_vars, otherben_vars,
-             benincome_vars, hhfinance_vars, education_vars, health_vars, health_care_vars, health_cond_vars, preg_vars, smoke_vars, alc_vars, weight_vars)
+  names <- c(id_vars, demographic_vars, prev_wave_vars, econ_stat_vars, income_vars, work_vars,
+             benefits_vars, pension_vars, bendis_vars, otherben_vars, benincome_vars, hhfinance_vars, education_vars, health_vars,
+             health_care_vars, health_cond_vars, preg_vars, smoke_vars, alc_vars, weight_vars)
   names <- tolower(names)
 
   data <- data[ , names, with = F]
@@ -121,15 +117,6 @@ ukhls_read_wave12 <- function(
                          ## work variables
                          "l_paygu_dv","l_payg_dv","l_jbhrs","l_fimnlabgrs_dv","l_seearngrs_dv","l_jbsic07_cc","l_jbot","l_jbotpd",
                          "l_jbnssec_dv","l_jbnssec3_dv","l_jbnssec5_dv","l_jbnssec8_dv", "l_jbsize",
-                         ## employees
-                         "l_paygl","l_paynl","l_payu","l_payug","l_paytyp","l_ovtpay","l_pvtpyset","l_extrate","l_extrest","l_basnset","l_basrate",
-                         "l_basrest","l_ovtnset","l_ovtrate","l_ovtrest",
-                         ## self-employed
-                         "l_jshrs","l_jspayu","l_jspytx","l_jspyni",
-                         ## non-employed
-                         "l_jbhad",
-                         ## second job
-                         "l_j2has","l_j2semp","l_j2hrs","l_j2pay",
                          ## benefits
                          "l_benbase1","l_benbase2","l_benbase3","l_benbase4","l_benbase96",
                          "l_benctc",
@@ -186,15 +173,6 @@ ukhls_read_wave12 <- function(
                          ## work variables
                          "grss_pay_usual","grss_pay_last","hours","grss_lab_inc","grss_semp","sic07","ovthours_pw","ovthours_paid",
                          "nssec","nssec_3cat","nssec_5cat","nssec_8cat", "jbsize",
-                         ## employees
-                         "last_gross_pay","last_net_pay","usual_pay","payug","pay_type","ovtpay","additional.pay_set","extrate","ext_estimate","basic.pay_set","baspay_rate",
-                         "baspay_estimate","ovt.pay_set","ovtpay_rate","ovtpay_estimate",
-                         ## self-employed
-                         "s.emp_hours","s.emp_pay","s.emp_pay_pretax","s.emp_pay_preNI",
-                         ## non-employed
-                         "jbhad",
-                         ## second job
-                         "2ndjb","2ndjb_s.emp","2ndjb_hours","2ndjob_pay",
                          ## benefits
                          "benbase1","benbase2","benbase3","benbase4","benbase96",
                          "benctc",

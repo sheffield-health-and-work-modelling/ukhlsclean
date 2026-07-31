@@ -103,9 +103,9 @@ ukhls_read_wave10 <- function(
   weight_vars      <- Hmisc::Cs(j_indinus_lw, j_indinui_xw)
 
 
-  names <- c(id_vars, demographic_vars, prev_wave_vars, econ_stat_vars, income_vars, work_vars, employees_vars, s.emp_vars, non.emp_vars, job2_vars,
-             benefits_vars, pension_vars, bendis_vars, otherben_vars, benincome_vars, hhfinance_vars, education_vars, health_vars, health_cond_vars, health_care_vars,
-             preg_vars, smoke_vars, alc_vars, weight_vars)
+  names <- c(id_vars, demographic_vars, prev_wave_vars, econ_stat_vars, income_vars, work_vars,
+             benefits_vars, pension_vars, bendis_vars, otherben_vars, benincome_vars, hhfinance_vars, education_vars, health_vars,
+             health_cond_vars, health_care_vars, preg_vars, smoke_vars, alc_vars, weight_vars)
   names <- tolower(names)
 
   data <- data[ , names, with = F]
@@ -125,15 +125,6 @@ ukhls_read_wave10 <- function(
                          ## work variables
                          "j_paygu_dv","j_payg_dv","j_jbhrs","j_fimnlabgrs_dv","j_seearngrs_dv","j_jbsic07_cc","j_jbot","j_jbotpd",
                          "j_jbnssec_dv","j_jbnssec3_dv","j_jbnssec5_dv","j_jbnssec8_dv", "j_jbsize",
-                         ## employees
-                         "j_paygl","j_paynl","j_payu","j_payug","j_paytyp","j_ovtpay","j_pvtpyset","j_extrate","j_extrest","j_basnset","j_basrate",
-                         "j_basrest","j_ovtnset","j_ovtrate","j_ovtrest",
-                         ## self-employed
-                         "j_jshrs","j_jspayu","j_jspytx","j_jspyni",
-                         ## non-employed
-                         "j_jbhad",
-                         ## second job
-                         "j_j2has","j_j2semp","j_j2hrs","j_j2pay",
                          ## benefits
                          "j_benbase1","j_benbase2","j_benbase3","j_benbase4","j_benbase96",
                          "j_benctc",
@@ -187,15 +178,6 @@ ukhls_read_wave10 <- function(
                          ## work variables
                          "grss_pay_usual","grss_pay_last","hours","grss_lab_inc","grss_semp","sic07","ovthours_pw","ovthours_paid",
                          "nssec","nssec_3cat","nssec_5cat","nssec_8cat", "jbsize",
-                         ## employees
-                         "last_gross_pay","last_net_pay","usual_pay","payug","pay_type","ovtpay","additional.pay_set","extrate","ext_estimate","basic.pay_set","baspay_rate",
-                         "baspay_estimate","ovt.pay_set","ovtpay_rate","ovtpay_estimate",
-                         ## self-employed
-                         "s.emp_hours","s.emp_pay","s.emp_pay_pretax","s.emp_pay_preNI",
-                         ## non-employed
-                         "jbhad",
-                         ## second job
-                         "2ndjb","2ndjb_s.emp","2ndjb_hours","2ndjob_pay",
                          ## benefits
                          "benbase1","benbase2","benbase3","benbase4","benbase96",
                          "benctc",

@@ -64,10 +64,6 @@ ukhls_read_wave5 <- function(
                                 e_fimnlabnet_dv, e_fimnlabgrs_dv, e_fimnmisc_dv, e_fimnprben_dv, e_fimninvnet_dv, e_fimnpen_dv, e_fimnsben_dv)
   work_vars        <- Hmisc::Cs(e_paygu_dv, e_payg_dv, e_jbhrs, e_fimnlabgrs_dv, e_seearngrs_dv, e_jbsic07_cc, e_jbot, e_jbotpd,
                                 e_jbnssec_dv, e_jbnssec3_dv, e_jbnssec5_dv, e_jbnssec8_dv, e_jbsize)
-  employees_vars   <- Hmisc::Cs(e_paygl, e_paynl, e_payu, e_payug, e_ovtpay, e_extnsa, e_extrate, e_extrest, e_basnsa, e_basrate, e_basrest, e_ovtnsa, e_ovtrate, e_ovtrest)
-  s.emp_vars       <- Hmisc::Cs(e_jshrs, e_jspayu, e_jspytx, e_jspyni)
-  non.emp_vars     <- Hmisc::Cs(e_jbhad)
-  job2_vars        <- Hmisc::Cs(e_j2has, e_j2semp, e_j2hrs, e_j2pay)
   benefits_vars    <- Hmisc::Cs(e_btype1, e_btype2, e_btype3, e_btype4, e_btype5, e_btype6, e_btype7, e_btype8, e_btype9, e_btype96,
                                 e_benunemp1, e_benunemp2, e_benunemp3, e_benunemp96, e_bendis1, e_bendis11, e_bendis2, e_bendis3, e_bendis4, e_bendis5, e_bendis12,
                                 e_bendis6, e_bendis7, e_bendis8, e_bendis9, e_bendis10, e_bendis96, e_bendis97)
@@ -97,8 +93,8 @@ ukhls_read_wave5 <- function(
   weight_vars      <- Hmisc::Cs(e_indinus_lw, e_indinub_xw)
 
 
-  names <- c(id_vars, demographic_vars, prev_wave_vars, econ_stat_vars, income_vars, work_vars, employees_vars, s.emp_vars,
-             non.emp_vars, job2_vars, benefits_vars, pension_vars, receivables_vars, hhfinance_vars, education_vars, health_vars, health_cond_vars,
+  names <- c(id_vars, demographic_vars, prev_wave_vars, econ_stat_vars, income_vars, work_vars,
+             benefits_vars, pension_vars, receivables_vars, hhfinance_vars, education_vars, health_vars, health_cond_vars,
              preg_vars, smoke_vars, alc_vars, weight_vars)
   names <- tolower(names)
 
@@ -119,15 +115,6 @@ ukhls_read_wave5 <- function(
                          ## work variables
                          "e_paygu_dv","e_payg_dv","e_jbhrs","e_fimnlabgrs_dv","e_seearngrs_dv","e_jbsic07_cc","e_jbot","e_jbotpd",
                          "e_jbnssec_dv","e_jbnssec3_dv","e_jbnssec5_dv","e_jbnssec8_dv", "e_jbsize",
-                         ## employees
-                         "e_paygl","e_paynl","e_payu","e_payug","e_ovtpay","e_extnsa","e_extrate","e_extrest","e_basnsa","e_basrate",
-                         "e_basrest","e_ovtnsa","e_ovtrate","e_ovtrest",
-                         ## self-employed
-                         "e_jshrs","e_jspayu","e_jspytx","e_jspyni",
-                         ## non-employed
-                         "e_jbhad",
-                         ## second job
-                         "e_j2has","e_j2semp","e_j2hrs","e_j2pay",
                          ## benefits
                          "e_btype1","e_btype2","e_btype3","e_btype4","e_btype5","e_btype6","e_btype7","e_btype8","e_btype9","e_btype96",
                          "e_benunemp1","e_benunemp2","e_benunemp3","e_benunemp96",
@@ -176,15 +163,6 @@ ukhls_read_wave5 <- function(
                          ## work variables
                          "grss_pay_usual","grss_pay_last","hours","grss_lab_inc","grss_semp","sic07","ovthours_pw","ovthours_paid",
                          "nssec","nssec_3cat","nssec_5cat","nssec_8cat", "jbsize",
-                         ## employees
-                         "last_gross_pay","last_net_pay","usual_pay","payug","ovtpay","extnsa","extrate","ext_estimate","baspay_amount","baspay_rate",
-                         "baspay_estimate","ovtpay_amount","ovtpay_rate","ovtpay_estimate",
-                         ## self-employed
-                         "s.emp_hours","s.emp_pay","s.emp_pay_pretax","s.emp_pay_preNI",
-                         ## non-employed
-                         "jbhad",
-                         ## second job
-                         "2ndjb","2ndjb_s.emp","2ndjb_hours","2ndjob_pay",
                          ## benefits
                          "btype1","btype2","btype3","btype4","btype5","btype6","btype7","btype8","btype9","btype96",
                          "benunemp1","benunemp2","benunemp3","benunemp96",
