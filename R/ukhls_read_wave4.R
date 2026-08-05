@@ -98,7 +98,7 @@ ukhls_read_wave4 <- function(
 
 
   names <- c(id_vars, demographic_vars, prev_wave_vars, econ_stat_vars, income_vars, work_vars,
-             job2_vars, benefits_vars, pension_vars, receivables_vars, hhfinance_vars, education_vars, health_vars,
+             benefits_vars, pension_vars, receivables_vars, hhfinance_vars, education_vars, health_vars,
              health_cond_vars, preg_vars, smoke_vars, alc_vars, weight_vars)
   names <- tolower(names)
 
