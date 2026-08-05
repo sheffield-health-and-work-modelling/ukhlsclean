@@ -45,8 +45,10 @@ ukhls_clean_work <- function(data = NULL,
 
   if (calendar_year == TRUE){
   data[, hours_semp := 0]
-  } else {
+  } else if ("s.emp_hours" %in% names(data)) {
   data[, hours_semp := s.emp_hours]
+  } else {
+  data[, hours_semp := NA_real_]
   }
   data[!is.na(hours_empl), hours := hours_empl]
   data[!is.na(hours_semp), hours := hours_semp]
