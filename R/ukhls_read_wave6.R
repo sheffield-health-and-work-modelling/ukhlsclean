@@ -61,7 +61,7 @@ ukhls_read_wave6 <- function(
   prev_wave_vars   <- Hmisc::Cs(f_notempchk, f_empchk)
   econ_stat_vars   <- Hmisc::Cs(f_jbstat, f_jbhas, f_jboff, f_jboffy, f_jbterm1, f_jbterm2, f_jbsemp, f_jbpen, f_jbpenm)
   income_vars      <- Hmisc::Cs(f_fimnnet_dv, f_fimngrs_dv,
-                                f_fimnlabnet_dv, a_fimnlabgrs_dv, f_fimnmisc_dv, f_fimnprben_dv, f_fimninvnet_dv, f_fimnpen_dv, f_fimnsben_dv)
+                                f_fimnlabnet_dv, f_fimnlabgrs_dv, f_fimnmisc_dv, f_fimnprben_dv, f_fimninvnet_dv, f_fimnpen_dv, f_fimnsben_dv)
   work_vars        <- Hmisc::Cs(f_paygu_dv, f_payg_dv, f_jbhrs, f_fimnlabgrs_dv, f_seearngrs_dv, f_jbsic07_cc, f_jbot, f_jbotpd,
                                 f_jbnssec_dv, f_jbnssec3_dv, f_jbnssec5_dv, f_jbnssec8_dv, f_jbsize)
   employees_vars   <- Hmisc::Cs(f_paygl, f_paynl, f_payu, f_payug, f_ovtpay, f_extnsa, f_extrate, f_extrest, f_basnsa, f_basrate, f_basrest, f_ovtnsa, f_ovtrate, f_ovtrest)
