@@ -47,7 +47,7 @@ global_data_clean <- function(data,
 
   ### benefits
   print("benefits")
-  #benefit <- ukhlsclean::clean_benefits(data = data)
+  benefits <- ukhlsclean::clean_benefits(data = data)
 
   ### income
   print("income")
@@ -81,7 +81,7 @@ global_data_clean <- function(data,
   merged_data <- merge(merged_data, demographics,      by = c("pidp", "hidp", "wave_no"))
   merged_data <- merge(merged_data, lmkt,              by = c("pidp", "hidp", "wave_no"))
   merged_data <- merge(merged_data, work,              by = c("pidp", "hidp", "wave_no"))
-  #merged_data <- merge(merged_data, benefit,           by = c("pidp", "hidp", "wave_no"))
+  merged_data <- merge(merged_data, benefits,          by = c("pidp", "hidp", "wave_no"))
   merged_data <- merge(merged_data, income,            by = c("pidp", "hidp", "wave_no"))
   merged_data <- merge(merged_data, health,            by = c("pidp", "hidp", "wave_no"))
   merged_data <- merge(merged_data, health_conditions, by = c("pidp", "hidp", "wave_no"))
