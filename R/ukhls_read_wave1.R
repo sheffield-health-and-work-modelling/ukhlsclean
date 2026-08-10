@@ -45,6 +45,10 @@ ukhls_read_wave1 <- function(
 
   cat(crayon::blue(crayon::underline("\tReading UKHLS Wave 1 datasets")))
 
+  # ==========================================
+  # 1. Main Individual Response File
+  # ==========================================
+
   cat(crayon::green("\tIndividual..."))
 
   path <- here::here(paste0(root, file))
@@ -61,7 +65,7 @@ ukhls_read_wave1 <- function(
 
   data.table::setnames(data, names(data), tolower(names(data)))
 
-  id_vars          <- Hmisc::Cs(pidp, a_hidp, a_pno, a_psu, a_strata, a_istrtdaty, a_istrtdatm, a_istrtdatd)
+  id_vars          <- Hmisc::Cs(pidp, a_hidp, a_pno, a_psu, a_strata, a_istrtdaty, a_istrtdatm, a_istrtdatd, a_ivfio)
   demographic_vars <- Hmisc::Cs(a_sex, a_dvage, a_birthy, a_gor_dv, a_urban_dv, a_mlstat, a_marstat, a_hiqual_dv)
   prev_wave_vars   <- NULL
   econ_stat_vars   <- Hmisc::Cs(a_jbstat,a_jbhas,a_jboff,a_jboffy, a_jbterm1, a_jbterm2, a_jbsemp, a_jbpen, a_jbpenm)
@@ -86,7 +90,7 @@ ukhls_read_wave1 <- function(
   alc_vars         <- NULL
   weight_vars      <- Hmisc::Cs(a_indinus_xw)
 
-
+  ## retain variables needed
   names <- c(id_vars, demographic_vars, prev_wave_vars, econ_stat_vars,
              income_vars, work_vars, benefits_vars, hhfinance_vars,
              health_vars, health_care_vars, health_cond_vars, smoke_vars, alc_vars, weight_vars)
@@ -97,14 +101,39 @@ ukhls_read_wave1 <- function(
   ## remove wave-specific prefix
   colnames(data) <- sub("^a_", "", colnames(data))
 
-
   data[, wave_no := 1]
   data[, bhps_sample := FALSE]
 
-  ########################################
-  ######## ADD IN HOUSEHOLD DATA #########
+  # ==========================================
+  # 2. Income File
+  # ==========================================
 
-  cat(crayon::green("\tHousehold..."))
+  cat(crayon::green("\tIncome.."))
+
+  data.income <- data.table::fread(
+    paste0(path, "/a_income.tab"),
+    showProgress = FALSE,
+    na.strings = c("NA", "", "-1", "-2", "-6", "-7", "-8", "-9", "-90", "-90.0", "N/A")
+  )
+  colnames(data.income) <- sub("^a_", "", colnames(data.income))
+
+  data.income <- process_income_data(data.income = data.income)
+
+  ### for individuals not in the income file set their benefit receipt variables equal to:
+  ### - 0 if a full interview (ivfio = 1)
+  ### - NA if a proxy interview (ivfio = 2) as proxy respondents routed away from income questions
+
+  income_merged <- merge(x = data, y = data.income, by="pidp", all.x=TRUE)
+
+  cols <- paste0("ben_receipt_", c(8:16, 18:23, 33, 40, 41))
+  income_merged[, (cols) := lapply(.SD, function(x) fifelse(is.na(x) & ivfio == 1, 0, x)) , .SDcols = cols]
+  income_merged[, (cols) := lapply(.SD, function(x) fifelse(is.na(x) & ivfio == 2, NA_real_ , x)), .SDcols = cols]
+
+  # ==========================================
+  # 3. Household File
+  # ==========================================
+
+  cat(crayon::green("\tH'hold.."))
 
   data.hhold <- data.table::fread(
     paste0(path, "/a_hhresp.tab"),
@@ -131,7 +160,7 @@ ukhls_read_wave1 <- function(
                          "hh_fihhmngrs1_dv", "hh_fihhmnlabgrs_dv",
                          "hh_fihhmnnet1_dv", "hh_fihhmnlabnet_dv", "hh_fihhmnsben_dv","ieqmoecd_dv"))
 
-  hhold_merged <- merge(x = data,
+  hhold_merged <- merge(x = income_merged,
                         y = data.hhold,
                         by="hidp",
                         all.x=TRUE,

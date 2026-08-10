@@ -40,6 +40,10 @@ ukhls_read_wave9 <- function(
 
   cat(crayon::blue(crayon::underline("\tReading UKHLS Wave 9 datasets")))
 
+  # ==========================================
+  # 1. Main Individual Response File
+  # ==========================================
+
   cat(crayon::green("\tIndividual..."))
 
   path <- here::here(paste0(root, file))
@@ -95,8 +99,34 @@ ukhls_read_wave9 <- function(
   data[, wave_no := 9]
   data[, bhps_sample := ifelse(!is.na(pid),TRUE,FALSE)]
 
-  ########################################
-  ######## ADD IN HOUSEHOLD DATA #########
+  # ==========================================
+  # 2. Income File
+  # ==========================================
+
+  cat(crayon::green("\tIncome.."))
+
+  data.income <- data.table::fread(
+    paste0(path, "/i_income.tab"),
+    showProgress = FALSE,
+    na.strings = c("NA", "", "-1", "-2", "-6", "-7", "-8", "-9", "-90", "-90.0", "N/A")
+  )
+  colnames(data.income) <- sub("^i_", "", colnames(data.income))
+
+  data.income <- process_income_data(data.income = data.income)
+
+  ### for individuals not in the income file set their benefit receipt variables equal to:
+  ### - 0 if a full interview (ivfio = 1)
+  ### - NA if a proxy interview (ivfio = 2) as proxy respondents routed away from income questions
+
+  income_merged <- merge(x = data, y = data.income, by="pidp", all.x=TRUE)
+
+  cols <- paste0("ben_receipt_", c(8:16, 18:23, 33, 40, 41))
+  income_merged[, (cols) := lapply(.SD, function(x) fifelse(is.na(x) & ivfio == 1, 0, x)) , .SDcols = cols]
+  income_merged[, (cols) := lapply(.SD, function(x) fifelse(is.na(x) & ivfio == 2, NA_real_ , x)), .SDcols = cols]
+
+  # ==========================================
+  # 3. Household File
+  # ==========================================
 
   cat(crayon::green("\tHousehold..."))
 
@@ -125,7 +155,7 @@ ukhls_read_wave9 <- function(
                          "hh_fihhmngrs1_dv", "hh_fihhmnlabgrs_dv",
                          "hh_fihhmnnet1_dv", "hh_fihhmnlabnet_dv", "hh_fihhmnsben_dv","ieqmoecd_dv"))
 
-  hhold_merged <- merge(x = data,
+  hhold_merged <- merge(x = income_merged,
                         y = data.hhold,
                         by = "hidp",
                         all.x=TRUE,
