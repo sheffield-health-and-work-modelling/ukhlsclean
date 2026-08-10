@@ -3,6 +3,7 @@
 export(Map_SF12_EQ5D3L)
 export(bhps_read_all)
 export(clean_alcohol)
+export(clean_benefits)
 export(clean_demographic)
 export(clean_health)
 export(clean_health_conditions)
