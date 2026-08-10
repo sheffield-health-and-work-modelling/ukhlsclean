@@ -15,11 +15,11 @@
 #' @return Returns a new set of variables
 #' @export
 global_data_clean <- function(data,
-                               ages = 16:89,
-                               country = NULL,
-                               complete_vars = NULL,
-                               calendar_year = FALSE,
-                               inflation = ukhlsclean::cpih
+                              ages = 16:89,
+                              country = NULL,
+                              complete_vars = NULL,
+                              calendar_year = FALSE,
+                              inflation = ukhlsclean::cpih
 ) {
 
   #######################################################################
@@ -28,6 +28,9 @@ global_data_clean <- function(data,
   main_data <- data[, c("pidp", "hidp", "wave_no", "bhps_sample",
                         "istrtdaty", "istrtdatm", "istrtdatd")]
 
+  ### survey weights
+  print("survey weights")
+  weights <- ukhlsclean::clean_survey_weights(data = data)
 
   ### demographics
   print("demographics")
@@ -74,16 +77,16 @@ global_data_clean <- function(data,
   ### Merge datasets ###
   print("merge datasets")
 
-  merged_data <- merge(main_data, demographics,        by = c("pidp", "hidp", "wave_no"))
+  merged_data <- merge(main_data, weights,             by = c("pidp", "hidp", "wave_no"))
+  merged_data <- merge(merged_data, demographics,      by = c("pidp", "hidp", "wave_no"))
+  merged_data <- merge(merged_data, lmkt,              by = c("pidp", "hidp", "wave_no"))
+  merged_data <- merge(merged_data, work,              by = c("pidp", "hidp", "wave_no"))
+  #merged_data <- merge(merged_data, benefit,           by = c("pidp", "hidp", "wave_no"))
   merged_data <- merge(merged_data, income,            by = c("pidp", "hidp", "wave_no"))
   merged_data <- merge(merged_data, health,            by = c("pidp", "hidp", "wave_no"))
   merged_data <- merge(merged_data, health_conditions, by = c("pidp", "hidp", "wave_no"))
   merged_data <- merge(merged_data, alcohol,           by = c("pidp", "hidp", "wave_no"))
   merged_data <- merge(merged_data, smoke,             by = c("pidp", "hidp", "wave_no"))
-  #merged_data <- merge(merged_data, gambling,          by = c("pidp", "hidp", "wave_no"))
-  merged_data <- merge(merged_data, lmkt,              by = c("pidp", "hidp", "wave_no"))
-  merged_data <- merge(merged_data, work,              by = c("pidp", "hidp", "wave_no"))
-  #merged_data <- merge(merged_data, benefit,           by = c("pidp", "hidp", "wave_no"))
   merged_data <- merge(merged_data, hhold,             by = c("pidp", "hidp", "wave_no"))
 
   ############################
