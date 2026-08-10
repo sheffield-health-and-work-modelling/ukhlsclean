@@ -10,31 +10,52 @@
 clean_work <- function(data = NULL,
                        calendar_year = FALSE) {
 
-  ##################
-  ## Hours, separated by employment / self-employment
+  data[, `:=`(
 
-  data[, hours_empl := jbhrs]
+    # ==========================================
+    # 1. HOURS MEASURES (Weekly)
+    # ==========================================
 
+    # Basic hours worked (employees)
+    hrs_basic = jbhrs,
 
-  ##########################
-  ## SICKNESS ABSENCE ######
+    # Basic hours + paid overtime (employees)
+    hrs_basic_paid_ot = jbhrs + fcoalesce(jbotpd, 0),
+
+    # Basic hours + all overtime, paid and unpaid (employees)
+    hrs_basic_all_ot = jbhrs + fcoalesce(jbot, 0),
+
+    # Hours worked in self-employment
+    hrs_se = jshrs,
+
+    # Composite hours (Employed & Self-Employed)
+    # Uses basic + paid OT for employees, and basic hours for self-employed
+    hrs_composite_main = fcoalesce(jbhrs + fcoalesce(jbot, 0), jshrs),
+
+    # ==========================================
+    # 2. EARNINGS MEASURES (Gross Monthly)
+    # ==========================================
+
+    # Monthly earnings from employment
+    pay_emp_monthly = paygu_dv,
+
+    # Monthly earnings from self-employment
+    pay_se_monthly = seearngrs_dv,
+
+    # Composite monthly earnings from employment & self-employment
+    # Method A: Official derived variable (includes main pay, SE, and 2nd jobs)
+    pay_composite_monthly = fimnlabgrs_dv,
+
+    # Method B: Manual main-job composite (if you explicitly want to exclude second jobs)
+    pay_composite_main_only = fcoalesce(paygu_dv, seearngrs_dv)
+  )]
+
+  # ==========================================
+  # 3. ABSENCE FROM WORK IN THE PAST WEEK
+  # ==========================================
+
 
   data[jbhas == 1, absent := 0]
-
-  # data[jbhas == 1, absent_sick := 0]
-  # data[jbhas == 1, absent_matleave := 0]
-  # data[jbhas == 1, absent_annualleave := 0]
-  # data[jbhas == 1, absent_other := 0]
-
-  # data[is.na(jbhas), absent_sick := NA]
-  # data[is.na(jbhas), absent_matleave := NA]
-  # data[is.na(jbhas), absent_annualleave := NA]
-  # data[is.na(jbhas), absent_other := NA]
-
-  # data[jbhas == 2 & jboff != 1, absent_sick := 0]
-  # data[jbhas == 2 & jboff != 1, absent_matleave := 0]
-  # data[jbhas == 2 & jboff != 1, absent_annualleave := 0]
-  # data[jbhas == 2 & jboff != 1, absent_other := 0]
 
   data[jbhas == 2 & jboff == 1, absent := 1]
 
@@ -45,22 +66,11 @@ clean_work <- function(data = NULL,
   data[, absent_annualleave := absent]
   data[!is.na(absent) & jboffy != 2, absent_annualleave := 0]
   data[, absent_other := absent]
-  data[!is.na(absent) & jboffy == 3, absent_other := 0] ## this makes absent other equal to NOT absent because of sick
-  # data[!is.na(absent) & (jboffy != 1 | jboffy != 2 | jboffy != 3), absent_other := 0] ## this makes absent other equal to NOT absent because of sick
+  data[!is.na(absent) & jboffy == 3, absent_other := 0]
 
-  #
-  # data[jbhas == 2 & jboffy == 1, absent_matleave := 1]
-  # data[jbhas == 2 & jboffy == 2, absent_annualleave := 1]
-  # data[jbhas == 2 & (jboffy == 1 | jboffy == 2 | jboffy == 3), absent_other := 0]
-  #
-  # data[jbhas == 2 & (jboffy != 1 & jboffy != 2 & jboffy != 3), absent_sick := 0]
-  # data[jbhas == 2 & (jboffy != 1 & jboffy != 2 & jboffy != 3), absent_matleave := 0]
-  # data[jbhas == 2 & (jboffy != 1 & jboffy != 2 & jboffy != 3), absent_annualleave := 0]
-  # data[jbhas == 2 & (jboffy != 1 & jboffy != 2 & jboffy != 3), absent_other := 1]
-
-
-  ##################
-  ## INDUSTRY ######
+  # ==========================================
+  # 4. SIC INDUSTRY OF MAIN JOB
+  # ==========================================
 
   data[, sic := jbsic07_cc]
 
@@ -210,8 +220,9 @@ clean_work <- function(data = NULL,
                                   "Undifferentiated goods- and services-producing activities of private households for own use",
                                   "Activities of extraterritorial organisations and bodies"
                                   )) ]
-  ##################
-  ## Firm size
+  # ==========================================
+  # 5. FIRM SIZE
+  # ==========================================
 
   if ("jbsize" %in% colnames(data)){
 
@@ -227,8 +238,9 @@ clean_work <- function(data = NULL,
   data[, firm_size := NA]
   }
 
-  ##################
-  ## NSSEC not in calendar year data
+  # ==========================================
+  # 6. NS SEC VATEGORY OF EMPLOYMENT
+  # ==========================================
 
   if (calendar_year == TRUE){
 
@@ -268,11 +280,16 @@ clean_work <- function(data = NULL,
   ## RETAIN THE CLEANED VARIABLES
 
   final_data <- data[, c("pidp", "hidp", "wave_no",
-                         "hours_empl", "nssec_3cat", "nssec_5cat", "nssec_8cat", "sic_1dig", "sic_2dig",
-                         "absent_sick","absent_matleave","absent_annualleave","absent_other", "firm_size")]
+                         "hrs_basic", "hrs_basic_paid_ot", "hrs_basic_all_ot", "hrs_se", "hrs_composite_main",
+                         "pay_emp_monthly","pay_se_monthly","pay_composite_monthly","pay_composite_main_only",
+                         "nssec_3cat", "nssec_5cat", "nssec_8cat", "sic_1dig", "sic_2dig",
+                         "absent_sick", "absent_matleave", "absent_annualleave", "absent_other", "firm_size")]
 
-  var_names <- c("hours_empl", "nssec_3cat", "nssec_5cat", "nssec_8cat", "sic_1dig", "sic_2dig",
+  var_names <- c("hrs_basic", "hrs_basic_paid_ot", "hrs_basic_all_ot", "hrs_se", "hrs_composite_main",
+                 "pay_emp_monthly","pay_se_monthly","pay_composite_monthly","pay_composite_main_only",
+                 "nssec_3cat", "nssec_5cat", "nssec_8cat", "sic_1dig", "sic_2dig",
                  "absent_sick", "absent_matleave", "absent_annualleave", "absent_other", "firm_size")
+
 
   setnames(final_data, var_names, paste0("w_", var_names))
 
