@@ -59,7 +59,7 @@ ukhls_read_wave3 <- function(
 
   data.table::setnames(data, names(data), tolower(names(data)))
 
-  id_vars          <- Hmisc::Cs(pidp, pid, c_hidp, c_pno, c_psu, c_strata, c_istrtdaty, c_istrtdatm, c_istrtdatd)
+  id_vars          <- Hmisc::Cs(pidp, pid, c_hidp, c_pno, c_psu, c_strata, c_istrtdaty, c_istrtdatm, c_istrtdatd, c_ivfio)
   demographic_vars <- Hmisc::Cs(c_sex, c_dvage, c_birthy, c_gor_dv, c_urban_dv, c_mlstat, c_marstat, c_hiqual_dv)
   prev_wave_vars   <- Hmisc::Cs(c_notempchk, c_empchk)
   econ_stat_vars   <- Hmisc::Cs(c_jbstat, c_jbhas, c_jboff, c_jboffy, c_jbterm1, c_jbterm2, c_jbsemp)
