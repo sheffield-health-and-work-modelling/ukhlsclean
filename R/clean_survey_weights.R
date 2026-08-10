@@ -38,7 +38,7 @@ clean_survey_weights <- function(data = NULL) {
     data[, weight_xw := indinui_xw ]
 
   }
-  if (isTRUE(is_wave14to15)){
+  if (isTRUE(is_wave14plus)){
 
     data[, weight_xw := inding2_xw ]
 
