@@ -20,17 +20,17 @@ clean_work <- function(data = NULL,
     hrs_basic = jbhrs,
 
     # Basic hours + paid overtime (employees)
-    hrs_basic_paid_ot = jbhrs + fcoalesce(jbotpd, 0),
+    hrs_basic_paid_ot = as.integer(jbhrs) + fcoalesce(as.integer(jbotpd), as.integer(0)),
 
     # Basic hours + all overtime, paid and unpaid (employees)
-    hrs_basic_all_ot = jbhrs + fcoalesce(jbot, 0),
+    hrs_basic_all_ot = as.integer(jbhrs) + fcoalesce(as.integer(jbot), as.integer(0)),
 
     # Hours worked in self-employment
-    hrs_se = jshrs,
+    hrs_se = as.integer(jshrs),
 
     # Composite hours (Employed & Self-Employed)
     # Uses basic + paid OT for employees, and basic hours for self-employed
-    hrs_composite_main = fcoalesce(jbhrs + fcoalesce(jbot, 0), jshrs),
+    hrs_composite_main = fcoalesce(as.integer(jbhrs) + fcoalesce(as.integer(jbot), as.integer(0)), as.integer(jshrs)),
 
     # ==========================================
     # 2. EARNINGS MEASURES (Gross Monthly)
