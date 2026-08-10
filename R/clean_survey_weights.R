@@ -47,7 +47,8 @@ clean_survey_weights <- function(data = NULL) {
   ##################
   ## RETAIN THE CLEANED VARIABLES
 
-  final_data <- data[, c("pidp", "hidp", "wave_no")]
+  final_data <- data[, c("pidp", "hidp", "wave_no",
+                         "weight_xw")]
 
   return(final_data)
 }
