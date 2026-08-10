@@ -61,7 +61,7 @@ ukhls_read_wave3 <- function(
   econ_stat_vars   <- Hmisc::Cs(c_jbstat, c_jbhas, c_jboff, c_jboffy, c_jbterm1, c_jbterm2, c_jbsemp)
   income_vars      <- Hmisc::Cs(c_fimnnet_dv, c_fimngrs_dv,
                                 c_fimnlabnet_dv, c_fimnlabgrs_dv, c_fimnmisc_dv, c_fimnprben_dv, c_fimninvnet_dv, c_fimnpen_dv, c_fimnsben_dv)
-  work_vars        <- Hmisc::Cs(c_paygu_dv, c_payg_dv, c_jbhrs, c_seearngrs_dv, c_jbsic07_cc, c_jbot, c_jbotpd,
+  work_vars        <- Hmisc::Cs(c_paygu_dv, c_payg_dv, c_jbhrs, c_seearngrs_dv, c_jbsic07_cc, c_jbot, c_jbotpd, c_jshrs,
                                 c_jbnssec_dv, c_jbnssec3_dv, c_jbnssec5_dv, c_jbnssec8_dv, c_jbsize)
   benefits_vars    <- Hmisc::Cs(c_btype1, c_btype2, c_btype3, c_btype4, c_btype5, c_btype6, c_btype7, c_btype8, c_btype9, c_btype96,
                                 c_benunemp1, c_benunemp2, c_benunemp3, c_benunemp96, c_bendis1, c_bendis2, c_bendis3, c_bendis4, c_bendis5, c_bendis6, c_bendis7,
