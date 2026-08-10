@@ -25,7 +25,7 @@ global_data_clean <- function(data,
   #######################################################################
   #### Save out a dataset containing the key identifiers and weights ####
 
-  main_data <- data[, c("pidp", "hidp", "wave_no", "bhps_sample",
+  main_data <- data[, c("pidp", "hidp", "wave_no", "bhps_sample", "strata", "psu",
                         "istrtdaty", "istrtdatm", "istrtdatd")]
 
   ### survey weights
