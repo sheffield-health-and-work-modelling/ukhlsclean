@@ -35,8 +35,9 @@ Map_SF12_EQ5D3L <- function(data,
 
   }
 
-  ##############################################
-  ### Prepare dummy variables
+  # =========================================================================
+  # 1. GENERATE DUMMY VARIABLES FOR ALL SF-12 ITEM RESPONSES
+  # =========================================================================
 
   health_util_data[, sfstat1 := ifelse(sfstat == 1, 1, 0)]
   health_util_data[, sfstat2 := ifelse(sfstat == 2, 1, 0)]
@@ -85,14 +86,32 @@ Map_SF12_EQ5D3L <- function(data,
   health_util_data[, sfvisit3 := ifelse(sfvisit == 3, 1, 0)]
   health_util_data[, sfvisit4 := ifelse(sfvisit == 4, 1, 0)]
 
-  ##########################################################
-  ##### Generate probabilities of being in each EQ5D domain
+  # =========================================================================
+  # 2. GENERATE PERSON-SPECIFIC RANDOM UNIFORM DRAWS
+  # =========================================================================
 
-  set.seed(seed)
+  ## Generate a random uniform draw for each individual for probabilistic mapping
+  ## to the three levels of each EQ-5D domain
+
+  ## Use the pidp as a person-specific random number seed so that a given pidp
+  ## uses the same random number seed in each wave to reduce noisy inter-wave
+  ## variation
+
+  health_util_data[, c("rand_E1", "rand_E2", "rand_E3", "rand_E4", "rand_E5") := {
+    person_seed <- (as.numeric(pidp[1]) + seed) %% 2147483647
+    set.seed(person_seed)
+    list(runif(.N), runif(.N), runif(.N), runif(.N), runif(.N))
+  }, by = pidp]
+
+  # ============================================================================
+  # 3. DERIVE THE LINEAR PREDICTIONS FOR EACH MULTINOMIAL LOGIT MODEL EQUATION
+  # ============================================================================
+
+  ### coefficients matrix
   m <- copy(matrix)
 
-  ###############
-  ## Mobility ###
+
+  # ----- Mobility
 
   health_util_data[, M2XB := (m[1,"m2"]*sfstat1   + m[2,"m2"]*sfstat2 + m[3,"m2"]*sfstat3 + m[4,"m2"]*sfstat4 +
                                 m[5,"m2"]*sfmode1   + m[6,"m2"]*sfmode2 +
@@ -122,18 +141,7 @@ Map_SF12_EQ5D3L <- function(data,
                                 m[32,"m3"]*sfvisit1  + m[33,"m3"]*sfvisit2 + m[34,"m3"]*sfvisit3 + m[35,"m3"]*sfvisit4 +
                                 m[36,"m3"]) ]
 
-  health_util_data[, prob_mob1 := 1/(1 + exp(M2XB) + exp(M3XB))]
-  health_util_data[, prob_mob2 := exp(M2XB)/(1 + exp(M2XB) + exp(M3XB))]
-  health_util_data[, prob_mob3 := exp(M3XB)/(1 + exp(M2XB) + exp(M3XB))]
-
-  health_util_data[, rand_E1 := runif(.N)]
-
-  health_util_data[, eqmob_est := 2]
-  health_util_data[rand_E1 < prob_mob1, eqmob_est := 1]
-  health_util_data[rand_E1 > 1 - prob_mob3, eqmob_est := 3]
-
-  #################
-  ### Self Care ###
+  # ----- Self-Care
 
   health_util_data[, C2XB := (m[1,"c2"]*sfstat1   + m[2,"c2"]*sfstat2 + m[3,"c2"]*sfstat3 + m[4,"c2"]*sfstat4 +
                                 m[5,"c2"]*sfmode1   + m[6,"c2"]*sfmode2 +
@@ -164,19 +172,7 @@ Map_SF12_EQ5D3L <- function(data,
                                 m[32,"c3"]*sfvisit1  + m[33,"c3"]*sfvisit2 + m[34,"c3"]*sfvisit3 + m[35,"c3"]*sfvisit4 +
                                 m[36,"c3"]) ]
 
-
-  health_util_data[, prob_care1 := 1/(1 + exp(C2XB) + exp(C3XB))]
-  health_util_data[, prob_care2 := exp(C2XB)/(1 + exp(C2XB) + exp(C3XB))]
-  health_util_data[, prob_care3 := exp(C3XB)/(1 + exp(C2XB) + exp(C3XB))]
-
-  health_util_data[, rand_E2 := runif(.N)]
-
-  health_util_data[, eqcare_est := 2]
-  health_util_data[rand_E2 < prob_care1, eqcare_est := 1]
-  health_util_data[rand_E2 > 1 - prob_care3, eqcare_est := 3]
-
-  ########################
-  ### Usual activities ###
+  # ----- Usual Activities
 
   health_util_data[, U2XB := (m[1,"u2"]*sfstat1   + m[2,"u2"]*sfstat2 + m[3,"u2"]*sfstat3 + m[4,"u2"]*sfstat4 +
                                 m[5,"u2"]*sfmode1   + m[6,"u2"]*sfmode2 +
@@ -206,18 +202,7 @@ Map_SF12_EQ5D3L <- function(data,
                                 m[32,"u3"]*sfvisit1  + m[33,"u3"]*sfvisit2 + m[34,"u3"]*sfvisit3 + m[35,"u3"]*sfvisit4 +
                                 m[36,"u3"]) ]
 
-  health_util_data[, prob_uact1 := 1/(1 + exp(U2XB) + exp(U3XB))]
-  health_util_data[, prob_uact2 := exp(U2XB)/(1 + exp(U2XB) + exp(U3XB))]
-  health_util_data[, prob_uact3 := exp(U3XB)/(1 + exp(U2XB) + exp(U3XB))]
-
-  health_util_data[, rand_E3 := runif(.N)]
-
-  health_util_data[, equact_est := 2]
-  health_util_data[rand_E3 < prob_uact1, equact_est := 1]
-  health_util_data[rand_E3 > 1 - prob_uact3, equact_est := 3]
-
-  ############
-  ### Pain ###
+  # ----- Pain
 
   health_util_data[, P2XB := (m[1,"p2"]*sfstat1   + m[2,"p2"]*sfstat2 + m[3,"p2"]*sfstat3 + m[4,"p2"]*sfstat4 +
                                 m[5,"p2"]*sfmode1   + m[6,"p2"]*sfmode2 +
@@ -247,18 +232,7 @@ Map_SF12_EQ5D3L <- function(data,
                                 m[32,"p3"]*sfvisit1  + m[33,"p3"]*sfvisit2 + m[34,"p3"]*sfvisit3 + m[35,"p3"]*sfvisit4 +
                                 m[36,"p3"]) ]
 
-  health_util_data[, prob_pain1 := 1/(1 + exp(P2XB) + exp(P3XB))]
-  health_util_data[, prob_pain2 := exp(P2XB)/(1 + exp(P2XB) + exp(P3XB))]
-  health_util_data[, prob_pain3 := exp(P3XB)/(1 + exp(P2XB) + exp(P3XB))]
-
-  health_util_data[, rand_E4 := runif(.N)]
-
-  health_util_data[, eqpain_est := 2]
-  health_util_data[rand_E4 < prob_pain1, eqpain_est := 1]
-  health_util_data[rand_E4 > 1 - prob_pain3, eqpain_est := 3]
-
-  ##########################
-  ### Anxiety/Depression ###
+  # ----- Anxiety and Depression
 
   health_util_data[, A2XB := (m[1,"a2"]*sfstat1   + m[2,"a2"]*sfstat2 + m[3,"a2"]*sfstat3 + m[4,"a2"]*sfstat4 +
                                 m[5,"a2"]*sfmode1   + m[6,"a2"]*sfmode2 +
@@ -288,18 +262,77 @@ Map_SF12_EQ5D3L <- function(data,
                                 m[32,"a3"]*sfvisit1  + m[33,"a3"]*sfvisit2 + m[34,"a3"]*sfvisit3 + m[35,"a3"]*sfvisit4 +
                                 m[36,"a3"]) ]
 
+  # ============================================================================
+  # 4. CONVERT THE LINEAR PREDICTIONS TO PROBABILITIES
+  # ============================================================================
+
+  # ----- Mobility
+
+  health_util_data[, prob_mob1 := 1/(1 + exp(M2XB) + exp(M3XB))]
+  health_util_data[, prob_mob2 := exp(M2XB)/(1 + exp(M2XB) + exp(M3XB))]
+  health_util_data[, prob_mob3 := exp(M3XB)/(1 + exp(M2XB) + exp(M3XB))]
+
+  # ----- Self Care
+
+  health_util_data[, prob_care1 := 1/(1 + exp(C2XB) + exp(C3XB))]
+  health_util_data[, prob_care2 := exp(C2XB)/(1 + exp(C2XB) + exp(C3XB))]
+  health_util_data[, prob_care3 := exp(C3XB)/(1 + exp(C2XB) + exp(C3XB))]
+
+  # ----- Usual Activities
+
+  health_util_data[, prob_uact1 := 1/(1 + exp(U2XB) + exp(U3XB))]
+  health_util_data[, prob_uact2 := exp(U2XB)/(1 + exp(U2XB) + exp(U3XB))]
+  health_util_data[, prob_uact3 := exp(U3XB)/(1 + exp(U2XB) + exp(U3XB))]
+
+  # ----- Pain
+
+  health_util_data[, prob_pain1 := 1/(1 + exp(P2XB) + exp(P3XB))]
+  health_util_data[, prob_pain2 := exp(P2XB)/(1 + exp(P2XB) + exp(P3XB))]
+  health_util_data[, prob_pain3 := exp(P3XB)/(1 + exp(P2XB) + exp(P3XB))]
+
+  # ----- Anxiety / Depression
+
   health_util_data[, prob_anx1 := 1/(1 + exp(A2XB) + exp(A3XB))]
   health_util_data[, prob_anx2 := exp(A2XB)/(1 + exp(A2XB) + exp(A3XB))]
   health_util_data[, prob_anx3 := exp(A3XB)/(1 + exp(A2XB) + exp(A3XB))]
 
-  health_util_data[, rand_E5 := runif(.N)]
+  # ============================================================================
+  # 5. PROBABILISTIC ASSIGNMENT OF INDIVIDUALS TO LEVELS OF EACH DOMAIN
+  # ============================================================================
+
+  # ----- Mobility
+
+  health_util_data[, eqmob_est := 2]
+  health_util_data[rand_E1 < prob_mob1, eqmob_est := 1]
+  health_util_data[rand_E1 > 1 - prob_mob3, eqmob_est := 3]
+
+  # ----- Self Care
+
+  health_util_data[, eqcare_est := 2]
+  health_util_data[rand_E2 < prob_care1, eqcare_est := 1]
+  health_util_data[rand_E2 > 1 - prob_care3, eqcare_est := 3]
+
+  # ----- Usual Activities
+
+  health_util_data[, equact_est := 2]
+  health_util_data[rand_E3 < prob_uact1, equact_est := 1]
+  health_util_data[rand_E3 > 1 - prob_uact3, equact_est := 3]
+
+  # ----- Pain
+
+  health_util_data[, eqpain_est := 2]
+  health_util_data[rand_E4 < prob_pain1, eqpain_est := 1]
+  health_util_data[rand_E4 > 1 - prob_pain3, eqpain_est := 3]
+
+  # ----- Anxiety / Depression
 
   health_util_data[, eqanx_est := 2]
   health_util_data[rand_E5 < prob_anx1, eqanx_est := 1]
   health_util_data[rand_E5 > 1 - prob_anx3, eqanx_est := 3]
 
-  ##########################
-  ### Apply EQ-5D Tariff ###
+  # ============================================================================
+  # 6. ASSIGN EQ-5D TARIFF TO THE DOMAINS
+  # ============================================================================
 
   health_util_data[, eq5d_score := 1]
 
