@@ -29,53 +29,53 @@ global_data_clean <- function(data,
                         "istrtdaty", "istrtdatm", "istrtdatd")]
 
   ### survey weights
-  print("survey weights")
+  #print("survey weights")
   weights <- ukhlsclean::clean_survey_weights(data = data)
 
   ### demographics
-  print("demographics")
+  #print("demographics")
   demographics <- ukhlsclean::clean_demographic(data = data)
 
   ### labour market
-  print("labour market")
+  #print("labour market")
   lmkt <- ukhlsclean::clean_labour_market(data = data,
                                           inflation = inflation)
 
   ### work
-  print("work")
+  #print("work")
   work <- ukhlsclean::clean_work(data = data, calendar_year = calendar_year)
 
   ### benefits
-  print("benefits")
+  #print("benefits")
   benefits <- ukhlsclean::clean_benefits(data = data)
 
   ### income
-  print("income")
+  #print("income")
   income <- ukhlsclean::clean_income(data = data)
 
   ### health and well-being
-  print("health and wellbeing")
+  #print("health and wellbeing")
   health <- ukhlsclean::clean_health(data = data)
 
   ### health conditions
-  print("health conditions")
+  #print("health conditions")
   health_conditions <- ukhlsclean::clean_health_conditions(data = data)
 
   ### alcohol
-  print("alcohol")
+  #print("alcohol")
   alcohol <- ukhlsclean::clean_alcohol(data = data)
 
   ### smoking
-  print("smoking")
+  #print("smoking")
   smoke <- ukhlsclean::clean_smoke(data = data)
 
   ### household
-  print("household")
+  #print("household")
   hhold <- ukhlsclean::clean_hhold(data = data, calendar_year = calendar_year, inflation = inflation)
 
   ######################
   ### Merge datasets ###
-  print("merge datasets")
+  #print("merge datasets")
 
   merged_data <- merge(main_data, weights,             by = c("pidp", "hidp", "wave_no"))
   merged_data <- merge(merged_data, demographics,      by = c("pidp", "hidp", "wave_no"))
