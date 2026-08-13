@@ -90,15 +90,10 @@ ukhls_read_wave4 <- function(
   weight_vars      <- Hmisc::Cs(d_indinus_lw, d_indinub_xw)
 
 
-<<<<<<< HEAD
   names <- c(id_vars, demographic_vars, prev_wave_vars, econ_stat_vars,
              income_vars, work_vars, benefits_vars, hhfinance_vars,
              health_vars, health_care_vars, health_cond_vars, smoke_vars, alc_vars, weight_vars)
-=======
-  names <- c(id_vars, demographic_vars, prev_wave_vars, econ_stat_vars, income_vars, work_vars,
-             benefits_vars, pension_vars, receivables_vars, hhfinance_vars, education_vars, health_vars,
-             health_cond_vars, preg_vars, smoke_vars, alc_vars, weight_vars)
->>>>>>> 9c47886c481433cab8298029c1f6bc6ece6000ef
+
   names <- tolower(names)
 
   data <- data[ , names, with = F]

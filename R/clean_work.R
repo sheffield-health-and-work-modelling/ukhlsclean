@@ -22,21 +22,8 @@ clean_work <- function(data = NULL,
     # Basic hours + paid overtime (employees)
     hrs_basic_paid_ot = as.integer(jbhrs) + fcoalesce(as.integer(jbotpd), as.integer(0)),
 
-<<<<<<< HEAD:R/clean_work.R
     # Basic hours + all overtime, paid and unpaid (employees)
     hrs_basic_all_ot = as.integer(jbhrs) + fcoalesce(as.integer(jbot), as.integer(0)),
-=======
-  if (calendar_year == TRUE){
-  data[, hours_semp := 0]
-  } else if ("s.emp_hours" %in% names(data)) {
-  data[, hours_semp := s.emp_hours]
-  } else {
-  data[, hours_semp := NA_real_]
-  }
-  data[!is.na(hours_empl), hours := hours_empl]
-  data[!is.na(hours_semp), hours := hours_semp]
-  data[!is.na(hours_empl) & !is.na(hours_semp), hours := hours_empl+hours_semp]
->>>>>>> 9c47886c481433cab8298029c1f6bc6ece6000ef:R/ukhls_clean_work.R
 
     # Hours worked in self-employment
     hrs_se = as.integer(jshrs),
