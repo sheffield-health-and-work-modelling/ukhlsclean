@@ -1,7 +1,7 @@
 Package: ukhlsclean
 Type: Package
 Title: Data Wrangling for Understanding Society: The UK Household Longitudinal Study.
-Version: 1.1.1
+Version: 2.0.0
 Authors@R: 
     c(
     person(given = "Damon",
@@ -22,7 +22,6 @@ Description: The package takes raw data for the UK Household Longitudinal Study
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.3.2
 Depends: 
     R (>= 2.10)
 Imports:
@@ -30,3 +29,4 @@ Imports:
     magrittr,
     Hmisc,
     bit64
+Config/roxygen2/version: 8.1.0
