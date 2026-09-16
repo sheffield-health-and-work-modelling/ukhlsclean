@@ -220,8 +220,48 @@ clean_work <- function(data = NULL,
                                   "Undifferentiated goods- and services-producing activities of private households for own use",
                                   "Activities of extraterritorial organisations and bodies"
                                   )) ]
+
   # ==========================================
-  # 5. FIRM SIZE
+  # 5. SOC OCCUPATION OF MAIN JOB
+  # ==========================================
+
+  if (all(c("jbsoc00_cc", "jbsoc10_cc") %in% colnames(data))){
+
+  data[, soc00 := jbsoc00_cc]
+  data[, soc10 := jbsoc10_cc]
+
+  data[, soc10_1dig := factor(substr(as.character(jbsoc10_cc), 1, 1),
+                              levels = as.character(1:9),
+                              labels = c("Managers, directors and senior officials",
+                                         "Professional occupations",
+                                         "Associate professional and technical occupations",
+                                         "Administrative and secretarial occupations",
+                                         "Skilled trades occupations",
+                                         "Caring, leisure and other service occupations",
+                                         "Sales and customer service occupations",
+                                         "Process, plant and machine operatives",
+                                         "Elementary occupations"))]
+
+  } else {
+
+  data[, soc00 := NA]
+  data[, soc10 := NA]
+  data[, soc10_1dig := NA]
+
+  }
+
+  if ("jbsoc20_cc" %in% colnames(data)){
+
+  data[, soc20 := jbsoc20_cc]
+
+  } else {
+
+  data[, soc20 := NA]
+
+  }
+
+  # ==========================================
+  # 6. FIRM SIZE
   # ==========================================
 
   if ("jbsize" %in% colnames(data)){
@@ -239,7 +279,7 @@ clean_work <- function(data = NULL,
   }
 
   # ==========================================
-  # 6. NS SEC VATEGORY OF EMPLOYMENT
+  # 7. NS SEC VATEGORY OF EMPLOYMENT
   # ==========================================
 
   if (calendar_year == TRUE){
@@ -283,11 +323,13 @@ clean_work <- function(data = NULL,
                          "hrs_basic", "hrs_basic_paid_ot", "hrs_basic_all_ot", "hrs_se", "hrs_composite_main",
                          "pay_emp_monthly","pay_se_monthly","pay_composite_monthly","pay_composite_main_only",
                          "nssec_3cat", "nssec_5cat", "nssec_8cat", "sic_1dig", "sic_2dig",
+                         "soc00", "soc10", "soc10_1dig", "soc20",
                          "absent_sick", "absent_matleave", "absent_annualleave", "absent_other", "firm_size")]
 
   var_names <- c("hrs_basic", "hrs_basic_paid_ot", "hrs_basic_all_ot", "hrs_se", "hrs_composite_main",
                  "pay_emp_monthly","pay_se_monthly","pay_composite_monthly","pay_composite_main_only",
                  "nssec_3cat", "nssec_5cat", "nssec_8cat", "sic_1dig", "sic_2dig",
+                 "soc00", "soc10", "soc10_1dig", "soc20",
                  "absent_sick", "absent_matleave", "absent_annualleave", "absent_other", "firm_size")
 
 

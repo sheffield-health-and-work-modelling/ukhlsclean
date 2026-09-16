@@ -67,7 +67,8 @@ ukhls_read_wave9 <- function(
   income_vars      <- Hmisc::Cs(i_fimnnet_dv, i_fimngrs_dv,
                                 i_fimnlabnet_dv, i_fimnlabgrs_dv, i_fimnmisc_dv, i_fimnprben_dv, i_fimninvnet_dv, i_fimnpen_dv, i_fimnsben_dv)
   work_vars        <- Hmisc::Cs(i_paygu_dv, i_payg_dv, i_jbhrs, i_seearngrs_dv, i_jbsic07_cc, i_jbot, i_jbotpd, i_jshrs,
-                                i_jbnssec_dv, i_jbnssec3_dv, i_jbnssec5_dv, i_jbnssec8_dv, i_jbsize)
+                                i_jbnssec_dv, i_jbnssec3_dv, i_jbnssec5_dv, i_jbnssec8_dv, i_jbsize,
+                                i_jbsoc00_cc, i_jbsoc10_cc)
   benefits_vars    <- Hmisc::Cs(i_benbase1, i_benbase2, i_benbase3, i_benbase4, i_benbase96,
                                 i_benctc)
   hhfinance_vars   <- Hmisc::Cs(i_fiyrdia, i_fiyrdb1, i_fiyrdb2, i_fiyrdb3, i_fiyrdb4, i_fiyrdb5, i_fiyrdb6, i_finnow, i_finfut)
