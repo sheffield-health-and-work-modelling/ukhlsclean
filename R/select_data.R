@@ -64,35 +64,5 @@ select_data <- function(
 
   }
 
-  #########################################################################
-  ## only keep variables named in keep_vars plus mandatory identifier and
-  ## weight variables
-
-  ## DM edit 01-Dec-23: need to take variable selection out of this bit because it
-  ## impacts later on in the workflow. May remove the keep_vars argument from the
-  ## workflow entirely
-
-  #keep_vars <- NULL
-
-  #if (is.null(keep_vars)) {
-
-  #  keep_vars <- names(data)
-  #}
-  #if (!is.null(keep_vars) & calendar_year == TRUE) {
-  #
-  #  keep_vars <- union(c("pidp","id","hidp","wave","wave_no","bhps_sample",
-  #                       "year","month","day","weight_xw","pop_factor"), keep_vars)
-  #}
-  #if (!is.null(keep_vars) & calendar_year == FALSE) {
-
-  #  keep_vars <- union(c("pidp","id","hidp","wave","wave_no","bhps_sample",
-  #                       "year","month","day","weight_xw"), keep_vars)
-  #}
-
-  #keep_vars <- intersect(names(data), keep_vars)
-
-  #data <- data[ , keep_vars, with = F]
-
-
   return(data)
 }

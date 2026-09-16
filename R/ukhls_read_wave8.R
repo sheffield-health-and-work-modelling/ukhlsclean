@@ -40,6 +40,10 @@ ukhls_read_wave8 <- function(
 
   cat(crayon::blue(crayon::underline("\tReading UKHLS Wave 8 datasets")))
 
+  # ==========================================
+  # 1. Main Individual Response File
+  # ==========================================
+
   cat(crayon::green("\tIndividual..."))
 
   path <- here::here(paste0(root, file))
@@ -56,25 +60,17 @@ ukhls_read_wave8 <- function(
 
   data.table::setnames(data, names(data), tolower(names(data)))
 
-  id_vars          <- Hmisc::Cs(pidp,pid, h_hidp, h_pno, h_psu, h_strata, h_istrtdaty, h_istrtdatm,h_istrtdatd)
-  demographic_vars <- Hmisc::Cs(h_sex, h_dvage, h_birthy, h_gor_dv, h_urban_dv, h_mlstat, h_marstat)
+  id_vars          <- Hmisc::Cs(pidp,pid, h_hidp, h_pno, h_psu, h_strata, h_istrtdaty, h_istrtdatm, h_istrtdatd, h_ivfio)
+  demographic_vars <- Hmisc::Cs(h_sex, h_dvage, h_birthy, h_gor_dv, h_urban_dv, h_mlstat, h_marstat, h_hiqual_dv)
   prev_wave_vars   <- Hmisc::Cs(h_notempchk, h_empchk)
   econ_stat_vars   <- Hmisc::Cs(h_jbstat, h_jbhas, h_jboff, h_jboffy, h_jbterm1, h_jbterm2, h_jbsemp, h_jbpen, h_jbpenm)
   income_vars      <- Hmisc::Cs(h_fimnnet_dv, h_fimngrs_dv,
                                 h_fimnlabnet_dv, h_fimnlabgrs_dv, h_fimnmisc_dv, h_fimnprben_dv, h_fimninvnet_dv, h_fimnpen_dv, h_fimnsben_dv)
-  work_vars        <- Hmisc::Cs(h_paygu_dv, h_payg_dv, h_jbhrs, h_fimnlabgrs_dv, h_seearngrs_dv, h_jbsic07_cc, h_jbot, h_jbotpd,
+  work_vars        <- Hmisc::Cs(h_paygu_dv, h_payg_dv, h_jbhrs, h_seearngrs_dv, h_jbsic07_cc, h_jbot, h_jbotpd, h_jshrs,
                                 h_jbnssec_dv, h_jbnssec3_dv, h_jbnssec5_dv, h_jbnssec8_dv, h_jbsize)
   benefits_vars    <- Hmisc::Cs(h_benbase1, h_benbase2, h_benbase3, h_benbase4, h_benbase96,
                                 h_benctc)
-  pension_vars     <- Hmisc::Cs(h_benpen1, h_benpen2, h_benpen3, h_benpen4, h_benpen5, h_benpen6, h_benpen7, h_benpen8, h_benpen96,
-                                h_niserps)
-  bendis_vars      <- Hmisc::Cs(h_bendis1, h_bendis2, h_bendis3, h_bendis4, h_bendis5, h_bendis12,
-                                h_bendis7, h_bendis8, h_bendis10, h_bendis97, h_bendis96)
-  otherben_vars    <- Hmisc::Cs(h_benesa,
-                                h_othben1, h_othben2, h_othben3, h_othben4, h_othben5, h_othben6, h_othben7, h_othben8, h_othben9, h_othben97, h_othben96)
-  benincome_vars   <- Hmisc::Cs(h_bensta2, h_bensta3, h_bensta4, h_bensta5, h_bensta6, h_bensta7, h_bensta97, h_bensta96)
   hhfinance_vars   <- Hmisc::Cs(h_fiyrdia, h_fiyrdb1, h_fiyrdb2, h_fiyrdb3, h_fiyrdb4, h_fiyrdb5, h_fiyrdb6, h_finnow, h_finfut)
-  education_vars   <- Hmisc::Cs(h_hiqual_dv)
   health_vars      <- Hmisc::Cs(h_health, h_aidhh, h_sclfsat1, h_sclfsato, h_sf12pcs_dv, h_sf12mcs_dv,
                                 h_scsf1, h_scsf2a, h_scsf2b, h_scsf3a, h_scsf3b, h_scsf4a, h_scsf4b, h_scsf5, h_scsf6a, h_scsf6b,h_scsf6c, h_scsf7,
                                 h_scghq1_dv,h_scghq2_dv)
@@ -85,144 +81,52 @@ ukhls_read_wave8 <- function(
                                 h_hconds01, h_hconds02, h_hconds03, h_hconds04, h_hconds05, h_hconds08, h_hconds09, h_hconds10, h_hconds11, h_hconds12, h_hconds13, h_hconds14, h_hconds15, h_hconds16, h_hconds17
   )
   health_care_vars <- Hmisc::Cs(h_hl2gp, h_hl2hop, h_hosp, h_hospd)
-  preg_vars        <- Hmisc::Cs(h_preg,
-                                h_pregout1, h_pregend1, h_pregsmoke1, h_smkmnth11, h_smkmnth21, h_smkmnth31, h_pregsmk11, h_pregsmk21, h_pregsmk31, h_aedrof1, h_aepuwk1, h_aepuda1, h_lchmulti1,
-                                h_pregout2, h_pregend2, h_pregsmoke2, h_smkmnth12, h_smkmnth22, h_smkmnth32, h_pregsmk12, h_pregsmk22, h_pregsmk32, h_aedrof2, h_aepuwk2, h_aepuda2, h_lchmulti2,
-                                h_pregout3, h_pregend3, h_pregsmoke3, h_smkmnth13, h_smkmnth23, h_smkmnth33, h_pregsmk13, h_pregsmk23, h_pregsmk33, h_aedrof3, h_aepuwk3, h_aepuda3, h_lchmulti3,
-                                h_pregout4, h_pregend4, h_pregsmoke4, h_smkmnth14, h_smkmnth24, h_smkmnth34, h_pregsmk14, h_pregsmk24, h_pregsmk34, h_aedrof4, h_aepuwk4, h_aepuda4, h_lchmulti4,
-                                h_nnewborn)
   smoke_vars       <- Hmisc::Cs(h_smoker, h_ncigs, h_ecigs)
   alc_vars         <- Hmisc::Cs(h_dklm, h_drnk4w, h_evralc, h_fivealcdr)
   weight_vars      <- Hmisc::Cs(h_indinus_lw, h_indinui_xw)
 
 
-  names <- c(id_vars, demographic_vars, prev_wave_vars, econ_stat_vars, income_vars, work_vars,
-             benefits_vars, pension_vars, bendis_vars, otherben_vars, benincome_vars, hhfinance_vars, education_vars, health_vars,
-             health_cond_vars, health_care_vars, preg_vars, smoke_vars, alc_vars, weight_vars)
+  names <- c(id_vars, demographic_vars, prev_wave_vars, econ_stat_vars,
+             income_vars, work_vars, benefits_vars, hhfinance_vars,
+             health_vars, health_care_vars, health_cond_vars, smoke_vars, alc_vars, weight_vars)
   names <- tolower(names)
 
   data <- data[ , names, with = F]
 
-  data.table::setnames(data,
+  ## remove wave-specific prefix
+  colnames(data) <- sub("^h_", "", colnames(data))
 
-                       c("pidp","pid","h_hidp","h_pno","h_psu","h_strata","h_istrtdaty","h_istrtdatm","h_istrtdatd",
-                         ## demographic
-                         "h_sex","h_dvage","h_birthy","h_gor_dv","h_urban_dv","h_mlstat","h_marstat",
-                         ## previous wave variables
-                         "h_notempchk","h_empchk",
-                         ## economic status
-                         "h_jbstat","h_jbhas","h_jboff","h_jboffy","h_jbterm1","h_jbterm2","h_jbsemp","h_jbpen","h_jbpenm",
-                         ## income variables
-                         "h_fimnnet_dv", "h_fimngrs_dv",
-                         "h_fimnlabnet_dv", "h_fimnlabgrs_dv", "h_fimnmisc_dv", "h_fimnprben_dv", "h_fimninvnet_dv", "h_fimnpen_dv", "h_fimnsben_dv",
-                         ## work variables
-                         "h_paygu_dv","h_payg_dv","h_jbhrs","h_fimnlabgrs_dv","h_seearngrs_dv","h_jbsic07_cc","h_jbot","h_jbotpd",
-                         "h_jbnssec_dv","h_jbnssec3_dv","h_jbnssec5_dv","h_jbnssec8_dv", "h_jbsize",
-                         ## benefits
-                         "h_benbase1","h_benbase2","h_benbase3","h_benbase4","h_benbase96",
-                         "h_benctc",
-                         ## pensions
-                         "h_benpen1","h_benpen2","h_benpen3","h_benpen4","h_benpen5","h_benpen6","h_benpen7","h_benpen8","h_benpen96",
-                         "h_niserps",
-                         ## disability benefits
-                         "h_bendis1","h_bendis2","h_bendis3","h_bendis4","h_bendis5","h_bendis12",
-                         "h_bendis7","h_bendis8","h_bendis10","h_bendis97","h_bendis96",
-                         ## other benefits
-                         "h_benesa",
-                         "h_othben1","h_othben2","h_othben3","h_othben4","h_othben5","h_othben6","h_othben7","h_othben8","h_othben9","h_othben97","h_othben96",
-                         ## benefit income variables (formerly receivables)
-                         "h_bensta2","h_bensta3","h_bensta4","h_bensta5","h_bensta6","h_bensta7","h_bensta97","h_bensta96",
-                         ## household finance variables (interest and dividends)
-                         "h_fiyrdia","h_fiyrdb1","h_fiyrdb2","h_fiyrdb3","h_fiyrdb4","h_fiyrdb5","h_fiyrdb6","h_finnow","h_finfut",
-                         ## education variables
-                         "h_hiqual_dv",
-                         ## health variables
-                         "h_health","h_aidhh","h_sclfsat1","h_sclfsato","h_sf12pcs_dv","h_sf12mcs_dv",
-                         "h_scsf1","h_scsf2a","h_scsf2b","h_scsf3a","h_scsf3b","h_scsf4a","h_scsf4b","h_scsf5","h_scsf6a","h_scsf6b","h_scsf6c","h_scsf7",
-                         "h_scghq1_dv","h_scghq2_dv",
-                         ## health condition variables
-                         "h_hcond1", "h_hcond2", "h_hcond3", "h_hcond4", "h_hcond5", "h_hcond6", "h_hcond7", "h_hcond8", "h_hcond9", "h_hcond10", "h_hcond11", "h_hcond12", "h_hcond13", "h_hcond14", "h_hcond15", "h_hcond16", "h_hcond17",
-                         "h_hcondn1", "h_hcondn2", "h_hcondn3", "h_hcondn4", "h_hcondn5", "h_hcondn6", "h_hcondn7", "h_hcondn8", "h_hcondn9", "h_hcondn10", "h_hcondn11", "h_hcondn12", "h_hcondn13", "h_hcondn14", "h_hcondn15", "h_hcondn16", "h_hcondn17",
-                         "h_hconds01", "h_hconds02", "h_hconds03", "h_hconds04", "h_hconds05", "h_hconds08", "h_hconds09", "h_hconds10", "h_hconds11", "h_hconds12", "h_hconds13", "h_hconds14", "h_hconds15", "h_hconds16", "h_hconds17",
-                         ## health care utilisation variables
-                         "h_hl2gp", "h_hl2hop", "h_hosp", "h_hospd",
-                         ## pregnancy variables
-                         "h_preg",
-                         "h_pregout1","h_pregend1","h_pregsmoke1","h_smkmnth11","h_smkmnth21","h_smkmnth31","h_pregsmk11","h_pregsmk21","h_pregsmk31","h_aedrof1","h_aepuwk1","h_aepuda1","h_lchmulti1",
-                         "h_pregout2","h_pregend2","h_pregsmoke2","h_smkmnth12","h_smkmnth22","h_smkmnth32","h_pregsmk12","h_pregsmk22","h_pregsmk32","h_aedrof2","h_aepuwk2","h_aepuda2","h_lchmulti2",
-                         "h_pregout3","h_pregend3","h_pregsmoke3","h_smkmnth13","h_smkmnth23","h_smkmnth33","h_pregsmk13","h_pregsmk23","h_pregsmk33","h_aedrof3","h_aepuwk3","h_aepuda3","h_lchmulti3",
-                         "h_pregout4","h_pregend4","h_pregsmoke4","h_smkmnth14","h_smkmnth24","h_smkmnth34","h_pregsmk14","h_pregsmk24","h_pregsmk34","h_aedrof4","h_aepuwk4","h_aepuda4","h_lchmulti4",
-                         "h_nnewborn",
-                         ## smoking variables
-                         "h_smoker", "h_ncigs","h_ecigs",
-                         ## alcohol variables
-                         "h_dklm","h_drnk4w","h_evralc","h_fivealcdr",
-                         ## weight
-                         "h_indinus_lw","h_indinui_xw"),
-
-                       c("pidp","pid","hidp","person_number","psu","strata","year","month","day",
-                         ## demographic
-                         "sex","age","birth_year","region","urban","mlstat","marstat",
-                         ## previous wave variables
-                         "notempchk","empchk",
-                         ## economic status
-                         "econ_stat","jbhas","jboff","jboffy","jbterm1","jbterm2","jbsemp","jbpen","jbpen_member",
-                         ## income variables
-                         "fimnnet_dv", "fimngrs_dv",
-                         "fimnlabnet_dv", "fimnlabgrs_dv", "fimnmisc_dv", "fimnprben_dv", "fimninvnet_dv", "fimnpen_dv", "fimnsben_dv",
-                         ## work variables
-                         "grss_pay_usual","grss_pay_last","hours","grss_lab_inc","grss_semp","sic07","ovthours_pw","ovthours_paid",
-                         "nssec","nssec_3cat","nssec_5cat","nssec_8cat", "jbsize",
-                         ## benefits
-                         "benbase1","benbase2","benbase3","benbase4","benbase96",
-                         "benctc",
-                         ## pensions
-                         "NI.state_pen","employer_pen","spouse.emp_pen","pencred_pen","prvt_pen","widow_pen","parent_pen","benpen8","non_benpen",
-                         "income_serps",
-                         ## disability benefits
-                         "bendis1","bendis2","bendis3","bendis4","bendis5","bendis12",
-                         "bendis7","bendis8","bendis10","bendis97","bendis96",
-                         ## other benefits
-                         "benesa","othben1","othben2","othben3","othben4","othben5","othben6",
-                         "othben7","othben8","othben9","othben97","othben96",
-                         ## benefit income variables (formerly receivables)
-                         "bensta_edugrant","bensta_tupay","bensta_alimony","bensta_fampay","bensta_rentlodge","bensta_rentother","bensta_other","non_bensta",
-                         ## household finance variables
-                         "fiyrdia","fiyrdb1","fiyrdb2","fiyrdb3","fiyrdb4","fiyrdb5","fiyrdb6","finnow","finfut",
-                         ## education variables
-                         "highest_qual",
-                         ## health variables
-                         "lt_sick","caring","health_satisf","life_satisf","sf12_pcs","sf12_mcs",
-                         "sf1","sf2a","sf2b","sf3a","sf3b","sf4a","sf4b","sf5","sf6a","sf6b","sf6c","sf7",
-                         "ghq1","ghq2",
-                         ## health condition variables
-                         "hcond1", "hcond2", "hcond3", "hcond4", "hcond5", "hcond6", "hcond7", "hcond8", "hcond9", "hcond10", "hcond11", "hcond12", "hcond13", "hcond14", "hcond15", "hcond16", "hcond17",
-                         "hcondn1", "hcondn2", "hcondn3", "hcondn4", "hcondn5", "hcondn6", "hcondn7", "hcondn8", "hcondn9", "hcondn10", "hcondn11", "hcondn12", "hcondn13", "hcondn14", "hcondn15", "hcondn16", "hcondn17",
-                         "hconds01", "hconds02", "hconds03", "hconds04", "hconds05", "hconds08", "hconds09", "hconds10", "hconds11", "hconds12", "hconds13", "hconds14", "hconds15", "hconds16", "hconds17",
-                         ## health care utilisation variables
-                         "hl2gp", "hl2hop", "hosp", "hospd",
-                         ## pregnancy variables
-                         "preg",
-                         "pregout1","pregend1","pregsmoke1","smkmnth11","smkmnth21","smkmnth31","pregsmk_ncigs11","pregsmk_ncigs21","pregsmk_ncigs31","pregdrnk_freq1","pregdrnk_unitpw1","pregdrnk_unit1","lchmulti1",
-                         "pregout2","pregend2","pregsmoke2","smkmnth12","smkmnth22","smkmnth32","pregsmk_ncigs12","pregsmk_ncigs22","pregsmk_ncigs32","pregdrnk_freq2","pregdrnk_unitpw2","pregdrnk_unit2","lchmulti2",
-                         "pregout3","pregend3","pregsmoke3","smkmnth13","smkmnth23","smkmnth33","pregsmk_ncigs13","pregsmk_ncigs23","pregsmk_ncigs33","pregdrnk_freq3","pregdrnk_unitpw3","pregdrnk_unit3","lchmulti3",
-                         "pregout4","pregend4","pregsmoke4","smkmnth14","smkmnth24","smkmnth34","pregsmk_ncigs14","pregsmk_ncigs24","pregsmk_ncigs34","pregdrnk_freq4","pregdrnk_unitpw4","pregdrnk_unit4","lchmulti4",
-                         "nnewborn",
-                         ## smoking variables
-                         "smoker", "ncigs","ecigs",
-                         ## alcohol variables
-                         "dklm","drnk4w","evralc","fivealcdr",
-                         ## weight
-                         "weight_lw","weight_xw"))
-
-  data[, wave := "UKHLS Wave 8"]
   data[, wave_no := 8]
   data[, bhps_sample := ifelse(!is.na(pid),TRUE,FALSE)]
-  data[, dataset := "UKHLS"]
-  data[, id := ifelse(bhps_sample==FALSE, pidp, pid)]
 
-  ########################################
-  ######## ADD IN HOUSEHOLD DATA #########
+  # ==========================================
+  # 2. Income File
+  # ==========================================
+
+  cat(crayon::green("\tIncome.."))
+
+  data.income <- data.table::fread(
+    paste0(path, "/h_income.tab"),
+    showProgress = FALSE,
+    na.strings = c("NA", "", "-1", "-2", "-6", "-7", "-8", "-9", "-90", "-90.0", "N/A")
+  )
+  colnames(data.income) <- sub("^h_", "", colnames(data.income))
+
+  data.income <- process_income_data(data.income = data.income)
+
+  ### for individuals not in the income file set their benefit receipt variables equal to:
+  ### - 0 if a full interview (ivfio = 1)
+  ### - NA if a proxy interview (ivfio = 2) as proxy respondents routed away from income questions
+
+  income_merged <- merge(x = data, y = data.income, by="pidp", all.x=TRUE)
+
+  cols <- paste0("ben_receipt_", c(8:16, 18:23, 33, 40, 41))
+  income_merged[, (cols) := lapply(.SD, function(x) fifelse(is.na(x) & ivfio == 1, 0, x)) , .SDcols = cols]
+  income_merged[, (cols) := lapply(.SD, function(x) fifelse(is.na(x) & ivfio == 2, NA_real_ , x)), .SDcols = cols]
+
+  # ==========================================
+  # 3. Household File
+  # ==========================================
 
   cat(crayon::green("\tHousehold..."))
 
@@ -251,7 +155,7 @@ ukhls_read_wave8 <- function(
                          "hh_fihhmngrs1_dv", "hh_fihhmnlabgrs_dv",
                          "hh_fihhmnnet1_dv", "hh_fihhmnlabnet_dv", "hh_fihhmnsben_dv","ieqmoecd_dv"))
 
-  hhold_merged <- merge(x = data,
+  hhold_merged <- merge(x = income_merged,
                         y = data.hhold,
                         by="hidp",
                         all.x=TRUE,
@@ -325,5 +229,5 @@ ukhls_read_wave8 <- function(
 
   cat(crayon::blue(crayon::bold("\tdone\n")))
 
-  return(data_merged[])
+  return(data_merged)
 }
